@@ -14,6 +14,8 @@
     <title>BookVerse - Marketplace E-Book Premium untuk Coding dan Pemrograman</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
@@ -47,11 +49,17 @@
         
         .category-chip {
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .category-chip:hover {
             transform: scale(1.05);
             background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .category-chip.active {
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid #fff;
         }
         
         .hero-gradient {
@@ -115,6 +123,83 @@
             font-size: 2rem;
             cursor: pointer;
         }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 8px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Clean UI for forms */
+        .auth-form input {
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .auth-form button {
+            background: #6d28d9;
+            color: white;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .auth-form button:hover {
+            background: #5b21b6;
+        }
+
+        /* Dashboard styles */
+        #dashboardModal .modal-content {
+            max-width: 500px;
+        }
+
+        .user-info {
+            background: #f3f4f6;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .user-info p {
+            margin-bottom: 0.5rem;
+            color: #374151;
+        }
     </style>
 </head>
 <body class="scroll-smooth">
@@ -125,8 +210,10 @@
         <a href="#books">Koleksi</a>
         <a href="#categories">Kategori</a>
         <a href="#about">Tentang</a>
-        <a href="/login">Masuk</a>
-        <a href="/register">Daftar</a>
+        <a href="#" id="mobileLogin">Masuk</a>
+        <a href="#" id="mobileRegister">Daftar</a>
+        <a href="#" id="mobileDashboard" style="display: none;">Dashboard</a>
+        <a href="#" id="mobileLogout" style="display: none;">Keluar</a>
     </div>
 
     <!-- Navigation -->
@@ -146,12 +233,18 @@
                 </div>
                 
                 <div class="flex items-center space-x-4">
-                    <a href="/login" class="bg-white text-purple-600 px-6 py-2 rounded-full font-semibold hover:bg-purple-50 transition-colors">
+                    <button id="loginBtn" class="bg-white text-purple-600 px-6 py-2 rounded-full font-semibold hover:bg-purple-50 transition-colors">
                         Masuk
-                    </a>
-                    <a href="/register" class="hidden md:block bg-purple-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-700 transition-colors">
+                    </button>
+                    <button id="registerBtn" class="hidden md:block bg-purple-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-700 transition-colors">
                         Daftar
-                    </a>
+                    </button>
+                    <button id="dashboardBtn" class="hidden bg-green-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-700 transition-colors">
+                        Dashboard
+                    </button>
+                    <button id="logoutBtn" class="hidden bg-red-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-red-700 transition-colors">
+                        Keluar
+                    </button>
                     <button id="menuToggle" class="md:hidden text-white">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
@@ -159,6 +252,45 @@
             </div>
         </div>
     </nav>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="text-center text-2xl font-bold mb-4 text-gray-800">Masuk ke BookVerse</h2>
+            <form id="loginForm" class="auth-form">
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Masuk</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="text-center text-2xl font-bold mb-4 text-gray-800">Daftar di BookVerse</h2>
+            <form id="registerForm" class="auth-form">
+                <input type="text" id="reg-name" placeholder="Nama" required>
+                <input type="email" id="reg-email" placeholder="Email" required>
+                <input type="password" id="reg-password" placeholder="Password" required>
+                <button type="submit">Daftar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard Modal -->
+    <div id="dashboardModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="text-center text-2xl font-bold mb-4 text-gray-800">Dashboard Pengguna</h2>
+            <div id="userInfo" class="user-info">
+                <!-- User info will be populated here -->
+            </div>
+            <button id="closeDashboard" class="mt-4 bg-gray-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-gray-600 w-full">Tutup</button>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section id="home" class="pt-24 pb-16">
@@ -232,9 +364,9 @@
                 <p class="text-purple-200 text-lg">Temukan e-book pemrograman yang paling banyak dibaca oleh developer</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div id="bookGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Book 1 -->
-                <div class="book-card glass-effect rounded-3xl p-6 cursor-pointer">
+                <div class="book-card glass-effect rounded-3xl p-6 cursor-pointer" data-category="Python">
                     <div class="relative mb-6">
                         <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d8231806-f286-44da-bf17-abbaff434bc5.png" alt="Cover e-book Python Programming dengan desain futuristik dan warna biru metalik" class="rounded-2xl w-full h-64 object-cover" />
                         <div class="absolute top-4 left-4 bg-yellow-400 text-purple-900 px-3 py-1 rounded-full text-sm font-bold">
@@ -258,7 +390,7 @@
                 </div>
                 
                 <!-- Book 2 -->
-                <div class="book-card glass-effect rounded-3xl p-6 cursor-pointer">
+                <div class="book-card glass-effect rounded-3xl p-6 cursor-pointer" data-category="JavaScript">
                     <div class="relative mb-6">
                         <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/64b5ad11-9a69-4d20-8d96-171bf72710d1.png" alt="Cover e-book JavaScript Essentials dengan desain minimalis dan warna earth tone" class="rounded-2xl w-full h-64 object-cover" />
                     </div>
@@ -279,7 +411,7 @@
                 </div>
                 
                 <!-- Book 3 -->
-                <div class="book-card glass-effect rounded-3xl p-6 cursor-pointer">
+                <div class="book-card glass-effect rounded-3xl p-6 cursor-pointer" data-category="AI/ML">
                     <div class="relative mb-6">
                         <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d20e4207-e3d6-43d0-adef-451cad3aa6fc.png" alt="Cover e-book Advanced AI dengan desain gelap dan elemen teknologi" class="rounded-2xl w-full h-64 object-cover" />
                         <div class="absolute top-4 left-4 bg-red-400 text-white px-3 py-1 rounded-full text-sm font-bold">
@@ -317,31 +449,31 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Jelajahi Kategori Coding</h2>
-                <p class="text-purple-200 text-lg">Temukan e-book berdasarkan bahasa pemrograman dan topik favorit Anda</p>
+                <p class="text-purple-200 text-lg">Klik kategori untuk filter e-book</p>
             </div>
             
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                <div class="category-chip glass-effect rounded-2xl p-4 text-center cursor-pointer">
+                <div class="category-chip glass-effect rounded-2xl p-4 text-center" data-category="Python">
                     <i class="fas fa-code text-2xl text-blue-400 mb-2"></i>
                     <div class="text-white font-medium">Python</div>
                 </div>
-                <div class="category-chip glass-effect rounded-2xl p-4 text-center cursor-pointer">
+                <div class="category-chip glass-effect rounded-2xl p-4 text-center" data-category="JavaScript">
                     <i class="fab fa-js-square text-2xl text-yellow-400 mb-2"></i>
                     <div class="text-white font-medium">JavaScript</div>
                 </div>
-                <div class="category-chip glass-effect rounded-2xl p-4 text-center cursor-pointer">
+                <div class="category-chip glass-effect rounded-2xl p-4 text-center" data-category="Java">
                     <i class="fab fa-java text-2xl text-red-400 mb-2"></i>
                     <div class="text-white font-medium">Java</div>
                 </div>
-                <div class="category-chip glass-effect rounded-2xl p-4 text-center cursor-pointer">
+                <div class="category-chip glass-effect rounded-2xl p-4 text-center" data-category="AI/ML">
                     <i class="fas fa-brain text-2xl text-purple-400 mb-2"></i>
                     <div class="text-white font-medium">AI/ML</div>
                 </div>
-                <div class="category-chip glass-effect rounded-2xl p-4 text-center cursor-pointer">
+                <div class="category-chip glass-effect rounded-2xl p-4 text-center" data-category="DevOps">
                     <i class="fas fa-server text-2xl text-green-400 mb-2"></i>
                     <div class="text-white font-medium">DevOps</div>
                 </div>
-                <div class="category-chip glass-effect rounded-2xl p-4 text-center cursor-pointer">
+                <div class="category-chip glass-effect rounded-2xl p-4 text-center" data-category="Web Dev">
                     <i class="fab fa-react text-2xl text-cyan-400 mb-2"></i>
                     <div class="text-white font-medium">Web Dev</div>
                 </div>
@@ -426,10 +558,10 @@
                     Bergabung dengan ribuan developer yang sudah maju karirnya melalui e-book BookVerse
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="/register" class="bg-yellow-400 text-purple-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition-colors">
+                    <button id="ctaRegister" class="bg-yellow-400 text-purple-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition-colors">
                         Daftar Sekarang
                         <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
+                    </button>
                     <button id="ctaDemo" class="glass-effect text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/20 transition-colors">
                         <i class="fas fa-book-open mr-2"></i>
                         Lihat Demo
@@ -528,21 +660,160 @@
     </footer>
 
     <script>
-        // Smooth scrolling for navigation links
+        // Supabase Initialization (Replace with your Supabase URL and Anon Key)
+        const supabaseUrl = 'https://your-supabase-url.supabase.co';
+        const supabaseKey = 'your-anon-key';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        // Check session on load
+        async function checkSession() {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                toggleAuthUI(true);
+                showDashboard(user);
+            } else {
+                toggleAuthUI(false);
+            }
+        }
+
+        function toggleAuthUI(isLoggedIn) {
+            document.getElementById('loginBtn').style.display = isLoggedIn ? 'none' : 'block';
+            document.getElementById('registerBtn').style.display = isLoggedIn ? 'none' : 'block';
+            document.getElementById('dashboardBtn').style.display = isLoggedIn ? 'block' : 'none';
+            document.getElementById('logoutBtn').style.display = isLoggedIn ? 'block' : 'none';
+            document.getElementById('mobileLogin').style.display = isLoggedIn ? 'none' : 'block';
+            document.getElementById('mobileRegister').style.display = isLoggedIn ? 'none' : 'block';
+            document.getElementById('mobileDashboard').style.display = isLoggedIn ? 'block' : 'none';
+            document.getElementById('mobileLogout').style.display = isLoggedIn ? 'block' : 'none';
+        }
+
+        // Login form
+        const loginForm = document.getElementById('loginForm');
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+            if (error) {
+                alert('Error: ' + error.message);
+            } else {
+                alert('Login berhasil!');
+                loginModal.style.display = 'none';
+                toggleAuthUI(true);
+                showDashboard(data.user);
+            }
+        });
+
+        // Register form
+        const registerForm = document.getElementById('registerForm');
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const name = document.getElementById('reg-name').value;
+            const { data, error } = await supabase.auth.signUp({ email, password });
+            if (error) {
+                alert('Error: ' + error.message);
+            } else {
+                // Optionally save name to profile table
+                await supabase.from('profiles').insert({ id: data.user.id, name });
+                alert('Pendaftaran berhasil! Silakan login.');
+                registerModal.style.display = 'none';
+            }
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await supabase.auth.signOut();
+            toggleAuthUI(false);
+            alert('Logout berhasil!');
+        });
+        document.getElementById('mobileLogout').addEventListener('click', async () => {
+            await supabase.auth.signOut();
+            toggleAuthUI(false);
+            mobileMenu.classList.remove('active');
+            alert('Logout berhasil!');
+        });
+
+        // Show dashboard
+        async function showDashboard(user) {
+            // Fetch additional profile info if needed
+            const { data: profile } = await supabase.from('profiles').select('name').eq('id', user.id).single();
+            const userInfo = document.getElementById('userInfo');
+            userInfo.innerHTML = `
+                <p><strong>Email:</strong> ${user.email}</p>
+                <p><strong>Nama:</strong> ${profile ? profile.name : 'Tidak tersedia'}</p>
+                <p><strong>ID Pengguna:</strong> ${user.id}</p>
+                <p><strong>Tanggal Bergabung:</strong> ${new Date(user.created_at).toLocaleDateString()}</p>
+            `;
+            dashboardModal.style.display = 'block';
+        }
+
+        // Modal handling
+        const loginModal = document.getElementById('loginModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const mobileLogin = document.getElementById('mobileLogin');
+        const loginClose = loginModal.querySelector('.close');
+
+        loginBtn.addEventListener('click', () => loginModal.style.display = 'block');
+        mobileLogin.addEventListener('click', () => {
+            loginModal.style.display = 'block';
+            mobileMenu.classList.remove('active');
+        });
+        loginClose.addEventListener('click', () => loginModal.style.display = 'none');
+
+        const registerModal = document.getElementById('registerModal');
+        const registerBtn = document.getElementById('registerBtn');
+        const mobileRegister = document.getElementById('mobileRegister');
+        const ctaRegister = document.getElementById('ctaRegister');
+        const registerClose = registerModal.querySelector('.close');
+
+        registerBtn.addEventListener('click', () => registerModal.style.display = 'block');
+        mobileRegister.addEventListener('click', () => {
+            registerModal.style.display = 'block';
+            mobileMenu.classList.remove('active');
+        });
+        ctaRegister.addEventListener('click', () => registerModal.style.display = 'block');
+        registerClose.addEventListener('click', () => registerModal.style.display = 'none');
+
+        const dashboardModal = document.getElementById('dashboardModal');
+        const dashboardBtn = document.getElementById('dashboardBtn');
+        const mobileDashboard = document.getElementById('mobileDashboard');
+        const dashboardClose = dashboardModal.querySelector('.close');
+        const closeDashboardBtn = document.getElementById('closeDashboard');
+
+        dashboardBtn.addEventListener('click', async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) showDashboard(user);
+        });
+        mobileDashboard.addEventListener('click', async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                showDashboard(user);
+                mobileMenu.classList.remove('active');
+            }
+        });
+        dashboardClose.addEventListener('click', () => dashboardModal.style.display = 'none');
+        closeDashboardBtn.addEventListener('click', () => dashboardModal.style.display = 'none');
+
+        window.addEventListener('click', (event) => {
+            if (event.target === loginModal) loginModal.style.display = 'none';
+            if (event.target === registerModal) registerModal.style.display = 'none';
+            if (event.target === dashboardModal) dashboardModal.style.display = 'none';
+        });
+
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
 
-        // Hover effects for book cards
+        // Book card hover
         const bookCards = document.querySelectorAll('.book-card');
         bookCards.forEach(card => {
             card.addEventListener('mouseenter', () => {
@@ -555,41 +826,61 @@
             });
         });
 
-        // Hover effects for category chips
+        // Category filter
         const categoryChips = document.querySelectorAll('.category-chip');
+        const bookGrid = document.getElementById('bookGrid');
+        let activeCategory = null;
+
+        categoryChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                const category = chip.dataset.category;
+                if (activeCategory === category) {
+                    // Reset filter
+                    activeCategory = null;
+                    chip.classList.remove('active');
+                    bookCards.forEach(book => book.style.display = 'block');
+                } else {
+                    activeCategory = category;
+                    categoryChips.forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    bookCards.forEach(book => {
+                        if (book.dataset.category === category) {
+                            book.style.display = 'block';
+                        } else {
+                            book.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        });
+
+        // Category hover
         categoryChips.forEach(chip => {
             chip.addEventListener('mouseenter', () => {
                 chip.style.transform = 'scale(1.05)';
                 chip.style.background = 'rgba(255, 255, 255, 0.2)';
             });
             chip.addEventListener('mouseleave', () => {
-                chip.style.transform = 'scale(1)';
-                chip.style.background = 'rgba(255, 255, 255, 0.1)';
+                if (!chip.classList.contains('active')) {
+                    chip.style.transform = 'scale(1)';
+                    chip.style.background = 'rgba(255, 255, 255, 0.1)';
+                }
             });
         });
 
-        // Mobile menu toggle
+        // Mobile menu
         const menuToggle = document.getElementById('menuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
         const closeMenu = document.getElementById('closeMenu');
 
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.add('active');
-        });
+        menuToggle.addEventListener('click', () => mobileMenu.classList.add('active'));
+        closeMenu.addEventListener('click', () => mobileMenu.classList.remove('active'));
 
-        closeMenu.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-        });
-
-        // Demo buttons (simulated)
+        // Demo buttons
         const demoBtn = document.getElementById('demoBtn');
         const ctaDemo = document.getElementById('ctaDemo');
-        demoBtn.addEventListener('click', () => {
-            alert('Demo sedang dimuat... (Simulasi video demo e-book coding)');
-        });
-        ctaDemo.addEventListener('click', () => {
-            alert('Demo sedang dimuat... (Simulasi video demo e-book coding)');
-        });
+        demoBtn.addEventListener('click', () => alert('Demo sedang dimuat... (Simulasi video demo e-book coding)'));
+        ctaDemo.addEventListener('click', () => alert('Demo sedang dimuat... (Simulasi video demo e-book coding)'));
 
         // Image error handling
         document.querySelectorAll('img').forEach(img => {
@@ -605,50 +896,26 @@
             };
         });
 
-        // Anti-inspect and anti-zoom protections
-        // Disable right-click
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
-        // Disable key combinations for dev tools
-        document.addEventListener('keydown', function(e) {
-            // F12
-            if (e.keyCode === 123) {
-                e.preventDefault();
-            }
-            // Ctrl + Shift + I
-            if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
-                e.preventDefault();
-            }
-            // Ctrl + Shift + J
-            if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
-                e.preventDefault();
-            }
-            // Ctrl + U (view source)
-            if (e.ctrlKey && e.keyCode === 85) {
+        // Anti-inspect and anti-zoom
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
                 e.preventDefault();
             }
         });
-
-        // Additional protection: Blur content if dev tools are open (basic detection)
-        function detectDevTools() {
+        setInterval(() => {
             const threshold = 160;
-            const widthThreshold = window.outerWidth - window.innerWidth > threshold;
-            const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-            if (widthThreshold || heightThreshold) {
+            if ((window.outerWidth - window.innerWidth > threshold) || (window.outerHeight - window.innerHeight > threshold)) {
                 document.body.style.filter = 'blur(10px)';
                 alert('Developer tools terdeteksi. Halaman akan diburamkan untuk keamanan.');
             }
-        }
-        setInterval(detectDevTools, 1000);
-
-        // Prevent zoom (already handled in meta viewport, but reinforce)
-        document.addEventListener('wheel', function(e) {
-            if (e.ctrlKey) {
-                e.preventDefault();
-            }
+        }, 1000);
+        document.addEventListener('wheel', e => {
+            if (e.ctrlKey) e.preventDefault();
         }, { passive: false });
+
+        // Initial session check
+        checkSession();
     </script>
 </body>
 </html>
