@@ -16,6 +16,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Supabase Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Disable Devtool Library -->
+    <script src="https://cdn.jsdelivr.net/npm/disable-devtool"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
@@ -641,6 +643,10 @@
         function renderBooks(category = null) {
             bookGrid.innerHTML = '';
             const filteredBooks = category ? ebooks.filter(book => book.category === category) : ebooks;
+            if (filteredBooks.length === 0) {
+                bookGrid.innerHTML = '<p class="text-white text-center col-span-3">Tidak ada e-book ditemukan untuk kategori ini.</p>';
+                return;
+            }
             filteredBooks.forEach(book => {
                 const stars = Array(Math.floor(book.rating)).fill('<i class="fas fa-star"></i>').join('') +
                     (book.rating % 1 !== 0 ? '<i class="fas fa-star-half-alt"></i>' : '');
@@ -894,10 +900,32 @@
             };
         });
 
-        // Anti-inspect and anti-zoom
+        // Enhanced Anti-inspect using disable-devtool library
+        DisableDevtool({
+            md5: '', // Optional, for bypass if needed
+            url: 'about:blank', // Redirect to blank if devtool detected
+            ondevtoolopen: function() {
+                window.location.href = 'about:blank'; // Or blur the page
+            },
+            interval: 100, // Check every 100ms
+            disableMenu: true,
+            stopIntervalTime: 5000, // Stop checking after 5s on mobile
+            clearIntervalWhenDevOpenTrigger: true,
+            detectors: [0, 1, 2, 3, 4, 5, 6, 7, 8], // All detectors
+            clearLog: true,
+            disableSelect: true,
+            disableCopy: true,
+            disableCut: true,
+            disablePaste: true
+        });
+
+        // Additional manual anti-inspect
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', e => {
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
+            // F12
+            if (e.keyCode === 123) e.preventDefault();
+            // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U, Ctrl+S
+            if (e.ctrlKey && (e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67) || e.keyCode === 85 || e.keyCode === 83)) {
                 e.preventDefault();
             }
         });
@@ -907,7 +935,7 @@
                 document.body.style.filter = 'blur(10px)';
                 alert('Developer tools terdeteksi. Halaman akan diburamkan untuk keamanan.');
             }
-        }, 1000);
+        }, 500);
         document.addEventListener('wheel', e => {
             if (e.ctrlKey) e.preventDefault();
         }, { passive: false });
