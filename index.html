@@ -200,6 +200,12 @@
             margin-bottom: 0.5rem;
             color: #374151;
         }
+
+        /* Logo styles */
+        .site-logo {
+            height: 40px;
+            width: auto;
+        }
     </style>
 </head>
 <body class="scroll-smooth">
@@ -220,9 +226,8 @@
     <nav class="glass-effect fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-4">
-                <div class="flex items-center space-x-2">
-                    <i class="fas fa-code text-white text-2xl"></i>
-                    <span class="text-white font-bold text-xl">BookVerse</span>
+                <div class="flex items-center">
+                    <img src="https://via.placeholder.com/150x40?text=BookVerse+Logo" alt="BookVerse Logo" class="site-logo">
                 </div>
                 
                 <div class="hidden md:flex space-x-8">
@@ -365,74 +370,7 @@
             </div>
             
             <div id="bookGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Book 1 -->
-                <div class="book-card glass-effect rounded-3xl p-6 cursor-pointer" data-category="Python">
-                    <div class="relative mb-6">
-                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d8231806-f286-44da-bf17-abbaff434bc5.png" alt="Cover e-book Python Programming dengan desain futuristik dan warna biru metalik" class="rounded-2xl w-full h-64 object-cover" />
-                        <div class="absolute top-4 left-4 bg-yellow-400 text-purple-900 px-3 py-1 rounded-full text-sm font-bold">
-                            Bestseller
-                        </div>
-                    </div>
-                    <h3 class="text-white font-semibold text-xl mb-2">Python Mastery</h3>
-                    <p class="text-purple-200 mb-4">Panduan lengkap pemrograman Python untuk pemula hingga advanced</p>
-                    <div class="flex items-center justify-between">
-                        <div class="text-yellow-400">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span class="text-white ml-2">4.8</span>
-                        </div>
-                        <div class="text-white font-bold text-xl">Rp 89.000</div>
-                    </div>
-                    <a href="/market/ebook?book=python-mastery" class="mt-4 block w-full bg-purple-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-purple-700 text-center">Beli Sekarang</a>
-                </div>
-                
-                <!-- Book 2 -->
-                <div class="book-card glass-effect rounded-3xl p-6 cursor-pointer" data-category="JavaScript">
-                    <div class="relative mb-6">
-                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/64b5ad11-9a69-4d20-8d96-171bf72710d1.png" alt="Cover e-book JavaScript Essentials dengan desain minimalis dan warna earth tone" class="rounded-2xl w-full h-64 object-cover" />
-                    </div>
-                    <h3 class="text-white font-semibold text-xl mb-2">JavaScript Essentials</h3>
-                    <p class="text-purple-200 mb-4">Belajar JavaScript modern untuk web development</p>
-                    <div class="flex items-center justify-between">
-                        <div class="text-yellow-400">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span class="text-white ml-2">5.0</span>
-                        </div>
-                        <div class="text-white font-bold text-xl">Rp 75.000</div>
-                    </div>
-                    <a href="/market/ebook?book=javascript-essentials" class="mt-4 block w-full bg-purple-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-purple-700 text-center">Beli Sekarang</a>
-                </div>
-                
-                <!-- Book 3 -->
-                <div class="book-card glass-effect rounded-3xl p-6 cursor-pointer" data-category="AI/ML">
-                    <div class="relative mb-6">
-                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d20e4207-e3d6-43d0-adef-451cad3aa6fc.png" alt="Cover e-book Advanced AI dengan desain gelap dan elemen teknologi" class="rounded-2xl w-full h-64 object-cover" />
-                        <div class="absolute top-4 left-4 bg-red-400 text-white px-3 py-1 rounded-full text-sm font-bold">
-                            New
-                        </div>
-                    </div>
-                    <h3 class="text-white font-semibold text-xl mb-2">AI Development</h3>
-                    <p class="text-purple-200 mb-4">Pengembangan AI dengan Python dan TensorFlow</p>
-                    <div class="flex items-center justify-between">
-                        <div class="text-yellow-400">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <span class="text-white ml-2">4.2</span>
-                        </div>
-                        <div class="text-white font-bold text-xl">Rp 82.000</div>
-                    </div>
-                    <a href="/market/ebook?book=ai-development" class="mt-4 block w-full bg-purple-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-purple-700 text-center">Beli Sekarang</a>
-                </div>
+                <!-- Books will be populated dynamically -->
             </div>
             
             <div class="text-center mt-12">
@@ -454,7 +392,7 @@
             
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                 <div class="category-chip glass-effect rounded-2xl p-4 text-center" data-category="Python">
-                    <i class="fas fa-code text-2xl text-blue-400 mb-2"></i>
+                    <img src="https://www.python.org/static/community_logos/python-logo-master-v3-TM.png" alt="Python Logo" class="h-8 mx-auto mb-2">
                     <div class="text-white font-medium">Python</div>
                 </div>
                 <div class="category-chip glass-effect rounded-2xl p-4 text-center" data-category="JavaScript">
@@ -590,10 +528,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
-                    <div class="flex items-center space-x-2 mb-6">
-                        <i class="fas fa-code text-white text-2xl"></i>
-                        <span class="text-white font-bold text-xl">BookVerse</span>
-                    </div>
+                    <img src="https://via.placeholder.com/150x40?text=BookVerse+Logo" alt="BookVerse Logo" class="site-logo mb-6">
                     <p class="text-purple-200 mb-6">
                         Platform e-book premium khusus pemrograman untuk developer Indonesia.
                     </p>
@@ -665,6 +600,76 @@
         const supabaseKey = 'your-anon-key';
         const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
+        // E-book Marketplace Data
+        const ebooks = [
+            {
+                id: 'python-mastery',
+                title: 'Python Mastery',
+                description: 'Panduan lengkap pemrograman Python untuk pemula hingga advanced',
+                category: 'Python',
+                image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d8231806-f286-44da-bf17-abbaff434bc5.png',
+                rating: 4.8,
+                price: 'Rp 89.000',
+                badge: 'Bestseller',
+                badgeColor: 'bg-yellow-400 text-purple-900'
+            },
+            {
+                id: 'javascript-essentials',
+                title: 'JavaScript Essentials',
+                description: 'Belajar JavaScript modern untuk web development',
+                category: 'JavaScript',
+                image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/64b5ad11-9a69-4d20-8d96-171bf72710d1.png',
+                rating: 5.0,
+                price: 'Rp 75.000',
+                badge: null
+            },
+            {
+                id: 'ai-development',
+                title: 'AI Development',
+                description: 'Pengembangan AI dengan Python dan TensorFlow',
+                category: 'AI/ML',
+                image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d20e4207-e3d6-43d0-adef-451cad3aa6fc.png',
+                rating: 4.2,
+                price: 'Rp 82.000',
+                badge: 'New',
+                badgeColor: 'bg-red-400 text-white'
+            }
+        ];
+
+        // Populate e-books dynamically
+        const bookGrid = document.getElementById('bookGrid');
+        function renderBooks(category = null) {
+            bookGrid.innerHTML = '';
+            const filteredBooks = category ? ebooks.filter(book => book.category === category) : ebooks;
+            filteredBooks.forEach(book => {
+                const stars = Array(Math.floor(book.rating)).fill('<i class="fas fa-star"></i>').join('') +
+                    (book.rating % 1 !== 0 ? '<i class="fas fa-star-half-alt"></i>' : '');
+                const bookElement = document.createElement('div');
+                bookElement.className = 'book-card glass-effect rounded-3xl p-6 cursor-pointer';
+                bookElement.dataset.category = book.category;
+                bookElement.innerHTML = `
+                    <div class="relative mb-6">
+                        <img src="${book.image}" alt="Cover e-book ${book.title}" class="rounded-2xl w-full h-64 object-cover" />
+                        ${book.badge ? `<div class="absolute top-4 left-4 ${book.badgeColor} px-3 py-1 rounded-full text-sm font-bold">${book.badge}</div>` : ''}
+                    </div>
+                    <h3 class="text-white font-semibold text-xl mb-2">${book.title}</h3>
+                    <p class="text-purple-200 mb-4">${book.description}</p>
+                    <div class="flex items-center justify-between">
+                        <div class="text-yellow-400">
+                            ${stars}
+                            <span class="text-white ml-2">${book.rating}</span>
+                        </div>
+                        <div class="text-white font-bold text-xl">${book.price}</div>
+                    </div>
+                    <a href="/market/ebook?book=${book.id}" class="mt-4 block w-full bg-purple-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-purple-700 text-center">Beli Sekarang</a>
+                `;
+                bookGrid.appendChild(bookElement);
+            });
+        }
+
+        // Initial render
+        renderBooks();
+
         // Check session on load
         async function checkSession() {
             const { data: { user } } = await supabase.auth.getUser();
@@ -715,7 +720,6 @@
             if (error) {
                 alert('Error: ' + error.message);
             } else {
-                // Optionally save name to profile table
                 await supabase.from('profiles').insert({ id: data.user.id, name });
                 alert('Pendaftaran berhasil! Silakan login.');
                 registerModal.style.display = 'none';
@@ -737,7 +741,6 @@
 
         // Show dashboard
         async function showDashboard(user) {
-            // Fetch additional profile info if needed
             const { data: profile } = await supabase.from('profiles').select('name').eq('id', user.id).single();
             const userInfo = document.getElementById('userInfo');
             userInfo.innerHTML = `
@@ -814,43 +817,38 @@
         });
 
         // Book card hover
-        const bookCards = document.querySelectorAll('.book-card');
-        bookCards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-10px) rotateX(5deg)';
-                card.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.15)';
+        function addBookHoverEffects() {
+            const bookCards = document.querySelectorAll('.book-card');
+            bookCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-10px) rotateX(5deg)';
+                    card.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.15)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) rotateX(0)';
+                    card.style.boxShadow = 'none';
+                });
             });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0) rotateX(0)';
-                card.style.boxShadow = 'none';
-            });
-        });
+        }
 
         // Category filter
         const categoryChips = document.querySelectorAll('.category-chip');
-        const bookGrid = document.getElementById('bookGrid');
         let activeCategory = null;
 
         categoryChips.forEach(chip => {
             chip.addEventListener('click', () => {
                 const category = chip.dataset.category;
                 if (activeCategory === category) {
-                    // Reset filter
                     activeCategory = null;
                     chip.classList.remove('active');
-                    bookCards.forEach(book => book.style.display = 'block');
+                    renderBooks();
                 } else {
                     activeCategory = category;
                     categoryChips.forEach(c => c.classList.remove('active'));
                     chip.classList.add('active');
-                    bookCards.forEach(book => {
-                        if (book.dataset.category === category) {
-                            book.style.display = 'block';
-                        } else {
-                            book.style.display = 'none';
-                        }
-                    });
+                    renderBooks(category);
                 }
+                addBookHoverEffects();
             });
         });
 
@@ -914,8 +912,9 @@
             if (e.ctrlKey) e.preventDefault();
         }, { passive: false });
 
-        // Initial session check
+        // Initial session check and book hover effects
         checkSession();
+        addBookHoverEffects();
     </script>
 </body>
 </html>
