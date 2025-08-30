@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="BookVerse adalah marketplace e-book premium yang fokus pada buku pemrograman dan coding. Temukan e-book berkualitas tinggi tentang Python, JavaScript, Java, dan teknologi terkini dari penulis terbaik.">
+    <meta name="keywords" content="e-book coding, buku pemrograman, e-book Python, e-book JavaScript, marketplace e-book, belajar coding online, tutorial programming">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="BookVerse - Marketplace E-Book Premium untuk Coding dan Pemrograman">
+    <meta property="og:description" content="Jelajahi koleksi e-book premium tentang coding, pemrograman, dan teknologi. Dari beginner hingga advanced, temukan bacaan yang menginspirasi karir IT Anda.">
+    <meta property="og:image" content="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0044e94e-2676-4bab-a3f3-856873666556.png">
+    <meta property="og:url" content="https://www.bookverse.id/">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>BookVerse - Marketplace E-Book Premium untuk Coding dan Pemrograman</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .book-card {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .category-chip {
+            transition: all 0.3s ease;
+        }
+        
+        .category-chip:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+        }
+        
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Mobile menu styles */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 50;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            text-decoration: none;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="scroll-smooth">
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <span class="close-btn" id="closeMenu">&times;</span>
+        <a href="#home">Beranda</a>
+        <a href="#books">Koleksi</a>
+        <a href="#categories">Kategori</a>
+        <a href="#about">Tentang</a>
+        <a href="/login">Masuk</a>
+        <a href="/register">Daftar</a>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="glass-effect fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-code text-white text-2xl"></i>
+                    <span class="text-white font-bold text-xl">BookVerse</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-white hover:text-purple-200 transition-colors">Beranda</a>
+                    <a href="#books" class="text-white hover:text-purple-200 transition-colors">Koleksi</a>
+                    <a href="#categories" class="text-white hover:text-purple-200 transition-colors">Kategori</a>
+                    <a href="#about" class="text-white hover:text-purple-200 transition-colors">Tentang</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <a href="/login" class="bg-white text-purple-600 px-6 py-2 rounded-full font-semibold hover:bg-purple-50 transition-colors">
+                        Masuk
+                    </a>
+                    <a href="/register" class="hidden md:block bg-purple-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-700 transition-colors">
+                        Daftar
+                    </a>
+                    <button id="menuToggle" class="md:hidden text-white">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-center md:text-left">
+                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                        Tingkatkan Skill Coding Anda dengan 
+                        <span class="text-yellow-300">E-Book Premium</span>
+                    </h1>
+                    <p class="text-purple-100 text-lg md:text-xl mb-8 leading-relaxed">
+                        Jelajahi koleksi e-book terbesar tentang pemrograman dan teknologi. 
+                        Dari Python hingga AI, temukan bacaan yang menginspirasi karir IT Anda.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="#books" class="bg-yellow-400 text-purple-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition-colors pulse-animation">
+                            Jelajahi Sekarang
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                        <button id="demoBtn" class="glass-effect text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/20 transition-colors">
+                            <i class="fas fa-play-circle mr-2"></i>
+                            Lihat Demo
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <div class="glass-effect rounded-3xl p-6 floating-animation">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0044e94e-2676-4bab-a3f3-856873666556.png" alt="Antarmuka perpustakaan digital modern menampilkan cover e-book pemrograman seperti Python dan JavaScript dalam layout grid dengan pencahayaan lembut" class="rounded-2xl w-full h-auto" />
+                    </div>
+                    <div class="absolute -top-4 -right-4 glass-effect rounded-2xl p-4 w-24 h-24 flex items-center justify-center">
+                        <i class="fas fa-star text-yellow-400 text-3xl"></i>
+                    </div>
+                    <div class="absolute -bottom-4 -left-4 glass-effect rounded-2xl p-4 w-20 h-20 flex items-center justify-center">
+                        <i class="fas fa-code-branch text-green-400 text-2xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center glass-effect rounded-2xl p-6">
+                    <div class="text-3xl md:text-4xl font-bold text-white mb-2">10K+</div>
+                    <div class="text-purple-200">E-book Coding</div>
+                </div>
+                <div class="text-center glass-effect rounded-2xl p-6">
+                    <div class="text-3xl md:text-4xl font-bold text-white mb-2">50K+</div>
+                    <div class="text-purple-200">Developer Aktif</div>
+                </div>
+                <div class="text-center glass-effect rounded-2xl p-6">
+                    <div class="text-3xl md:text-4xl font-bold text-white mb-2">200+</div>
+                    <div class="text-purple-200">Penulis Expert</div>
+                </div>
+                <div class="text-center glass-effect rounded-2xl p-6">
+                    <div class="text-3xl md:text-4xl font-bold text-white mb-2">24/7</div>
+                    <div class="text-purple-200">Dukungan Teknis</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Books -->
+    <section id="books" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">E-book Coding Terpopuler</h2>
+                <p class="text-purple-200 text-lg">Temukan e-book pemrograman yang paling banyak dibaca oleh developer</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Book 1 -->
+                <div class="book-card glass-effect rounded-3xl p-6 cursor-pointer">
+                    <div class="relative mb-6">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d8231806-f286-44da-bf17-abbaff434bc5.png" alt="Cover e-book Python Programming dengan desain futuristik dan warna biru metalik" class="rounded-2xl w-full h-64 object-cover" />
+                        <div class="absolute top-4 left-4 bg-yellow-400 text-purple-900 px-3 py-1 rounded-full text-sm font-bold">
+                            Bestseller
+                        </div>
+                    </div>
+                    <h3 class="text-white font-semibold text-xl mb-2">Python Mastery</h3>
+                    <p class="text-purple-200 mb-4">Panduan lengkap pemrograman Python untuk pemula hingga advanced</p>
+                    <div class="flex items-center justify-between">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span class="text-white ml-2">4.8</span>
+                        </div>
+                        <div class="text-white font-bold text-xl">Rp 89.000</div>
+                    </div>
+                    <a href="/market/ebook?book=python-mastery" class="mt-4 block w-full bg-purple-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-purple-700 text-center">Beli Sekarang</a>
+                </div>
+                
+                <!-- Book 2 -->
+                <div class="book-card glass-effect rounded-3xl p-6 cursor-pointer">
+                    <div class="relative mb-6">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/64b5ad11-9a69-4d20-8d96-171bf72710d1.png" alt="Cover e-book JavaScript Essentials dengan desain minimalis dan warna earth tone" class="rounded-2xl w-full h-64 object-cover" />
+                    </div>
+                    <h3 class="text-white font-semibold text-xl mb-2">JavaScript Essentials</h3>
+                    <p class="text-purple-200 mb-4">Belajar JavaScript modern untuk web development</p>
+                    <div class="flex items-center justify-between">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span class="text-white ml-2">5.0</span>
+                        </div>
+                        <div class="text-white font-bold text-xl">Rp 75.000</div>
+                    </div>
+                    <a href="/market/ebook?book=javascript-essentials" class="mt-4 block w-full bg-purple-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-purple-700 text-center">Beli Sekarang</a>
+                </div>
+                
+                <!-- Book 3 -->
+                <div class="book-card glass-effect rounded-3xl p-6 cursor-pointer">
+                    <div class="relative mb-6">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d20e4207-e3d6-43d0-adef-451cad3aa6fc.png" alt="Cover e-book Advanced AI dengan desain gelap dan elemen teknologi" class="rounded-2xl w-full h-64 object-cover" />
+                        <div class="absolute top-4 left-4 bg-red-400 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            New
+                        </div>
+                    </div>
+                    <h3 class="text-white font-semibold text-xl mb-2">AI Development</h3>
+                    <p class="text-purple-200 mb-4">Pengembangan AI dengan Python dan TensorFlow</p>
+                    <div class="flex items-center justify-between">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span class="text-white ml-2">4.2</span>
+                        </div>
+                        <div class="text-white font-bold text-xl">Rp 82.000</div>
+                    </div>
+                    <a href="/market/ebook?book=ai-development" class="mt-4 block w-full bg-purple-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-purple-700 text-center">Beli Sekarang</a>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#categories" class="glass-effect text-white px-8 py-3 rounded-full font-semibold hover:bg-white/20 transition-colors">
+                    Lihat Semua E-book
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section id="categories" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Jelajahi Kategori Coding</h2>
+                <p class="text-purple-200 text-lg">Temukan e-book berdasarkan bahasa pemrograman dan topik favorit Anda</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div class="category-chip glass-effect rounded-2xl p-4 text-center cursor-pointer">
+                    <i class="fas fa-code text-2xl text-blue-400 mb-2"></i>
+                    <div class="text-white font-medium">Python</div>
+                </div>
+                <div class="category-chip glass-effect rounded-2xl p-4 text-center cursor-pointer">
+                    <i class="fab fa-js-square text-2xl text-yellow-400 mb-2"></i>
+                    <div class="text-white font-medium">JavaScript</div>
+                </div>
+                <div class="category-chip glass-effect rounded-2xl p-4 text-center cursor-pointer">
+                    <i class="fab fa-java text-2xl text-red-400 mb-2"></i>
+                    <div class="text-white font-medium">Java</div>
+                </div>
+                <div class="category-chip glass-effect rounded-2xl p-4 text-center cursor-pointer">
+                    <i class="fas fa-brain text-2xl text-purple-400 mb-2"></i>
+                    <div class="text-white font-medium">AI/ML</div>
+                </div>
+                <div class="category-chip glass-effect rounded-2xl p-4 text-center cursor-pointer">
+                    <i class="fas fa-server text-2xl text-green-400 mb-2"></i>
+                    <div class="text-white font-medium">DevOps</div>
+                </div>
+                <div class="category-chip glass-effect rounded-2xl p-4 text-center cursor-pointer">
+                    <i class="fab fa-react text-2xl text-cyan-400 mb-2"></i>
+                    <div class="text-white font-medium">Web Dev</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Apa Kata Developer</h2>
+                <p class="text-purple-200 text-lg">Testimoni dari developer yang menggunakan BookVerse</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-effect rounded-3xl p-6">
+                    <div class="text-yellow-400 mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-white mb-4">"Platform terbaik untuk e-book coding. Koleksi Python-nya lengkap dan mudah dipahami!"</p>
+                    <div class="flex items-center">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c326b26f-011b-4237-9424-ed49f14b9c3c.png" alt="Foto profil developer wanita dengan senyum ramah" class="rounded-full w-12 h-12 mr-3" />
+                        <div>
+                            <div class="text-white font-semibold">Sarah Wijaya</div>
+                            <div class="text-purple-200 text-sm">Software Engineer</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-effect rounded-3xl p-6">
+                    <div class="text-yellow-400 mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-white mb-4">"E-book JavaScript di sini top-notch. Membantu saya naik level dalam web dev!"</p>
+                    <div class="flex items-center">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9938d24c-0c60-4872-b8c9-99feba81a9e9.png" alt="Foto profil developer pria dengan kacamata" class="rounded-full w-12 h-12 mr-3" />
+                        <div>
+                            <div class="text-white font-semibold">Budi Santoso</div>
+                            <div class="text-purple-200 text-sm">Full-Stack Developer</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-effect rounded-3xl p-6">
+                    <div class="text-yellow-400 mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="text-white mb-4">"Proses beli mudah, dukungan cepat. Ideal untuk belajar AI dari nol."</p>
+                    <div class="flex items-center">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b0c5d269-58f3-4b40-8ba1-5b8fce43143d.png" alt="Foto profil developer wanita muda dengan ekspresi senang" class="rounded-full w-12 h-12 mr-3" />
+                        <div>
+                            <div class="text-white font-semibold">Dewi Lestari</div>
+                            <div class="text-purple-200 text-sm">Data Scientist</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="glass-effect rounded-3xl p-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+                    Siap Tingkatkan Skill Coding Anda?
+                </h2>
+                <p class="text-purple-200 text-lg mb-8">
+                    Bergabung dengan ribuan developer yang sudah maju karirnya melalui e-book BookVerse
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="/register" class="bg-yellow-400 text-purple-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition-colors">
+                        Daftar Sekarang
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                    <button id="ctaDemo" class="glass-effect text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/20 transition-colors">
+                        <i class="fas fa-book-open mr-2"></i>
+                        Lihat Demo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Tentang BookVerse</h2>
+                <p class="text-purple-200 text-lg">Platform khusus e-book pemrograman yang membantu developer belajar dan berkembang.</p>
+            </div>
+            <div class="glass-effect rounded-3xl p-8 text-white">
+                <p class="mb-4">BookVerse didirikan pada 2024 dengan misi menyediakan akses mudah ke e-book berkualitas tinggi tentang coding dan teknologi. Kami fokus pada konten yang praktis, up-to-date, dan ditulis oleh expert di bidangnya.</p>
+                <p>Kami mendukung berbagai format e-book yang kompatibel dengan perangkat mobile dan desktop, serta menyediakan fitur pencarian lanjutan untuk menemukan topik spesifik seperti algoritma, framework, dan best practices.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="glass-effect mt-16 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <i class="fas fa-code text-white text-2xl"></i>
+                        <span class="text-white font-bold text-xl">BookVerse</span>
+                    </div>
+                    <p class="text-purple-200 mb-6">
+                        Platform e-book premium khusus pemrograman untuk developer Indonesia.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-yellow-400 transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-yellow-400 transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-yellow-400 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-yellow-400 transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-semibold mb-6">Produk</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#books" class="text-purple-200 hover:text-white transition-colors">E-book Coding</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition-colors">Tutorial Interaktif</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition-colors">Course Bundle</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition-colors">Update Berkala</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-semibold mb-6">Perusahaan</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#about" class="text-purple-200 hover:text-white transition-colors">Tentang Kami</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition-colors">Karir</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition-colors">Kontak</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-semibold mb-6">Dukungan</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-purple-200 hover:text-white transition-colors">Bantuan</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition-colors">FAQ</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition-colors">Kebijakan Privasi</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-white transition-colors">Syarat & Ketentuan</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-purple-300/20 mt-12 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-purple-200 text-sm">
+                        © 2024 BookVerse. All rights reserved.
+                    </p>
+                    <div class="flex space-x-6 mt-4 md:mt-0">
+                        <a href="#" class="text-purple-200 hover:text-white text-sm transition-colors">Privacy Policy</a>
+                        <a href="#" class="text-purple-200 hover:text-white text-sm transition-colors">Terms of Service</a>
+                        <a href="#" class="text-purple-200 hover:text-white text-sm transition-colors">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Hover effects for book cards
+        const bookCards = document.querySelectorAll('.book-card');
+        bookCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) rotateX(5deg)';
+                card.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.15)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) rotateX(0)';
+                card.style.boxShadow = 'none';
+            });
+        });
+
+        // Hover effects for category chips
+        const categoryChips = document.querySelectorAll('.category-chip');
+        categoryChips.forEach(chip => {
+            chip.addEventListener('mouseenter', () => {
+                chip.style.transform = 'scale(1.05)';
+                chip.style.background = 'rgba(255, 255, 255, 0.2)';
+            });
+            chip.addEventListener('mouseleave', () => {
+                chip.style.transform = 'scale(1)';
+                chip.style.background = 'rgba(255, 255, 255, 0.1)';
+            });
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        // Demo buttons (simulated)
+        const demoBtn = document.getElementById('demoBtn');
+        const ctaDemo = document.getElementById('ctaDemo');
+        demoBtn.addEventListener('click', () => {
+            alert('Demo sedang dimuat... (Simulasi video demo e-book coding)');
+        });
+        ctaDemo.addEventListener('click', () => {
+            alert('Demo sedang dimuat... (Simulasi video demo e-book coding)');
+        });
+
+        // Image error handling
+        document.querySelectorAll('img').forEach(img => {
+            img.onerror = function() {
+                this.style.display = 'none';
+                const parent = this.parentElement;
+                parent.style.background = 'rgba(255, 255, 255, 0.1)';
+                parent.style.minHeight = '200px';
+                parent.style.display = 'flex';
+                parent.style.alignItems = 'center';
+                parent.style.justifyContent = 'center';
+                parent.innerHTML = '<i class="fas fa-image text-white text-3xl"></i>';
+            };
+        });
+
+        // Anti-inspect and anti-zoom protections
+        // Disable right-click
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Disable key combinations for dev tools
+        document.addEventListener('keydown', function(e) {
+            // F12
+            if (e.keyCode === 123) {
+                e.preventDefault();
+            }
+            // Ctrl + Shift + I
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+                e.preventDefault();
+            }
+            // Ctrl + Shift + J
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+                e.preventDefault();
+            }
+            // Ctrl + U (view source)
+            if (e.ctrlKey && e.keyCode === 85) {
+                e.preventDefault();
+            }
+        });
+
+        // Additional protection: Blur content if dev tools are open (basic detection)
+        function detectDevTools() {
+            const threshold = 160;
+            const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+            const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+            if (widthThreshold || heightThreshold) {
+                document.body.style.filter = 'blur(10px)';
+                alert('Developer tools terdeteksi. Halaman akan diburamkan untuk keamanan.');
+            }
+        }
+        setInterval(detectDevTools, 1000);
+
+        // Prevent zoom (already handled in meta viewport, but reinforce)
+        document.addEventListener('wheel', function(e) {
+            if (e.ctrlKey) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    </script>
+</body>
+</html>
