@@ -2,947 +2,635 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="description" content="BookVerse adalah marketplace e-book premium yang fokus pada buku pemrograman dan coding. Temukan e-book berkualitas tinggi tentang Python, JavaScript, Java, dan teknologi terkini dari penulis terbaik.">
-    <meta name="keywords" content="e-book coding, buku pemrograman, e-book Python, e-book JavaScript, marketplace e-book, belajar coding online, tutorial programming">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="BookVerse - Marketplace E-Book Premium untuk Coding dan Pemrograman">
-    <meta property="og:description" content="Jelajahi koleksi e-book premium tentang coding, pemrograman, dan teknologi. Dari beginner hingga advanced, temukan bacaan yang menginspirasi karir IT Anda.">
-    <meta property="og:image" content="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0044e94e-2676-4bab-a3f3-856873666556.png">
-    <meta property="og:url" content="https://www.bookverse.id/">
-    <meta name="twitter:card" content="summary_large_image">
-    <title>BookVerse - Marketplace E-Book Premium untuk Coding dan Pemrograman</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writehub - Fresh Graduate Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Supabase Client -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- Disable Devtool Library -->
-    <script src="https://cdn.jsdelivr.net/npm/disable-devtool"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+        :root {
+            --accent: #0f766e;
+            --accent-lt: #ccfbf1;
+            --surface: #f1f5f9;
+            --card: #ffffff;
+            --text: #1e293b;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --danger: #ef4444;
+            --fresh-primary: #2563eb; /* Biru untuk kesan muda/akademis */
         }
-        
+        .dark-mode {
+            --surface: #0f172a;
+            --card: #1e293b;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --border: #334155;
+        }
+        .dark-mode .fi { background: #0f172a; color: #e2e8f0; border-color: #334155; }
+        .dark-mode .fi:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(15,118,110,.15); }
+        .dark-mode .fi::placeholder { color: #475569; }
+        .dark-mode .tp-c { background: #1e293b; border-color: #334155; }
+        .dark-mode .tp-c:hover { border-color: var(--accent); background: rgba(15,118,110,.1); }
+        .dark-mode .tp-c.on { border-color: var(--accent); background: rgba(15,118,110,.15); }
+        .dark-mode .stat-bar { background: #0f172a; border-color: #334155; }
+        .dark-mode .sh-hd { border-color: var(--border); }
+        .dark-mode .pv-wrap { background: rgba(30,41,59,.5); border-color: #334155; }
+        .dark-mode .wc-b { background: #1e293b; }
+        .dark-mode .kb { background: #1e293b; border-color: #334155; color: #64748b; }
+        .dark-mode .tip-a { background: #451a03; border-color: #78350f; }
+        .dark-mode .tip-a p { color: #fbbf24; }
+        .dark-mode .tip-t { background: #042f2e; border-color: #115e59; }
+        .dark-mode .tip-t p { color: #5eead4; }
+        .dark-mode .linkedin-hint { color: #64748b; }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            background: var(--surface); color: var(--text);
+            overflow-x: hidden; transition: background .3s, color .3s;
         }
-        
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .bg-dots {
+            position: fixed; inset: 0; z-index: -1; pointer-events: none;
+            background-image: radial-gradient(circle, #cbd5e1 0.8px, transparent 0.8px);
+            background-size: 28px 28px; opacity: 0.35;
         }
-        
-        .book-card {
-            transition: all 0.3s ease;
-            transform-style: preserve-3d;
+        .dark-mode .bg-dots { opacity: 0.12; }
+
+        .a4-cv {
+            width: 210mm; min-height: 297mm; background: #fff;
+            box-shadow: 0 10px 50px rgba(15,23,42,.08), 0 1px 4px rgba(15,23,42,.04);
+            margin: 0 auto; padding: 16mm 20mm 16mm 20mm;
+            color: #1a1a1a; position: relative;
         }
-        
-        .book-card:hover {
-            transform: translateY(-10px) rotateX(5deg);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-        }
-        
-        .category-chip {
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .category-chip:hover {
-            transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .category-chip.active {
-            background: rgba(255, 255, 255, 0.3);
-            border: 1px solid #fff;
-        }
-        
-        .hero-gradient {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
-        }
-        
-        .scroll-smooth {
-            scroll-behavior: smooth;
-        }
-        
-        .floating-animation {
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        .pulse-animation {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .a4-cv.cv-inter { font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; }
+        .a4-cv.cv-roboto { font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif; }
+        .a4-cv.cv-jakarta { font-family: 'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif; }
+
+        .a4-page-guide {
+            position: absolute; top: 0; left: 0; right: 0; height: 297mm;
+            border: 1px dashed rgba(148,163,184,.4); border-radius: 2px;
+            pointer-events: none; z-index: 1;
         }
 
-        /* Mobile menu styles */
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 50;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+        /* ===== STYLING CV ATS ===== */
+        .cv-name { font-size: 22pt; font-weight: 700; color: #111; margin-bottom: 2px; letter-spacing: -0.3px; line-height: 1.15; }
+        .cv-title { font-size: 11pt; color: #555; font-weight: 400; margin-bottom: 10px; }
+        .cv-contact { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 8.5pt; color: #444; margin-bottom: 14px; line-height: 1.6; }
+        .cv-contact span { white-space: nowrap; }
+        .cv-sep { border: none; border-top: 1.5px solid #222; margin: 12px 0 10px; }
+        .cv-heading { font-size: 11pt; font-weight: 700; color: #111; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; padding-bottom: 3px; border-bottom: 1.5px solid #222; }
+        .cv-summary { font-size: 9.5pt; color: #333; line-height: 1.6; margin-bottom: 4px; text-align: justify; }
+        .cv-exp-item { margin-bottom: 10px; }
+        .cv-exp-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 2px; }
+        .cv-exp-role { font-size: 10pt; font-weight: 600; color: #111; }
+        .cv-exp-date { font-size: 8.5pt; color: #666; font-weight: 400; }
+        .cv-exp-company { font-size: 9pt; color: #444; font-style: italic; margin-bottom: 3px; }
+        .cv-bullet { font-size: 9.5pt; color: #333; line-height: 1.55; padding-left: 14px; position: relative; margin-bottom: 2px; }
+        .cv-bullet::before { content: '\2022'; position: absolute; left: 0; color: #333; }
+        .cv-edu-item { margin-bottom: 8px; }
+        .cv-edu-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 2px; }
+        .cv-edu-school { font-size: 10pt; font-weight: 600; color: #111; }
+        .cv-edu-date { font-size: 8.5pt; color: #666; }
+        .cv-edu-detail { font-size: 9pt; color: #444; }
+        .cv-skill-item { display: flex; align-items: baseline; margin-bottom: 3px; }
+        .cv-skill-name { font-size: 9.5pt; font-weight: 600; color: #111; min-width: 140px; flex-shrink: 0; }
+        .cv-skill-desc { font-size: 9pt; color: #444; }
+        .cv-cert-item { font-size: 9.5pt; color: #333; margin-bottom: 3px; line-height: 1.5; }
+        .cv-lang-item { display: flex; align-items: baseline; margin-bottom: 3px; }
+        .cv-lang-name { font-size: 9.5pt; font-weight: 600; color: #111; min-width: 110px; flex-shrink: 0; }
+        .cv-lang-level { font-size: 9pt; color: #444; }
 
-        .mobile-menu.active {
-            display: flex;
+        .preview-only { pointer-events: none; }
+        .overflow-badge {
+            display: none; position: absolute; bottom: 8mm; left: 20mm; right: 20mm;
+            background: #fef2f2; border: 1px solid #fecaca; color: #dc2626;
+            font-size: 9pt; font-weight: 600; padding: 6px 12px; border-radius: 8px;
+            text-align: center; font-family: 'Plus Jakarta Sans', sans-serif; z-index: 2;
         }
+        .overflow-badge.show { display: block; }
 
-        .mobile-menu a {
-            color: white;
-            font-size: 1.5rem;
-            margin: 1rem 0;
-            text-decoration: none;
+        .fi {
+            width: 100%; padding: 10px 14px; border: 1.5px solid var(--border);
+            border-radius: 10px; font-family: inherit; font-size: 12.5px;
+            color: var(--text); background: var(--card);
+            transition: border-color .2s, box-shadow .2s; outline: none;
         }
+        .fi:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(15,118,110,.08); }
+        .fi.err { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(239,68,68,.08); }
+        .fi::placeholder { color: #94a3b8; }
+        textarea.fi { resize: vertical; min-height: 64px; line-height: 1.5; }
+        select.fi {
+            cursor: pointer; appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' fill='none' stroke='%2364748b' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px;
+        }
+        .fl { display: block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: 4px; }
+        .fl .req { color: var(--danger); }
+        .fe { font-size: 9.5px; color: var(--danger); margin-top: 2px; display: none; }
+        .fe.sh { display: block; }
+        .linkedin-hint { font-size: 9.5px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
 
-        .close-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
+        .print-indicator {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            z-index: 99999; background: rgba(15,23,42,.85); backdrop-filter: blur(8px);
+            border-radius: 16px; padding: 28px 40px; text-align: center;
+            display: none; flex-direction: column; align-items: center; gap: 12px;
         }
+        .print-indicator.show { display: flex; }
+        .print-indicator .pi-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(20,184,166,.2); display: flex; align-items: center; justify-content: center; }
+        .print-indicator .pi-icon i { color: #2dd4bf; font-size: 20px; }
+        .print-indicator .pi-text { color: #e2e8f0; font-size: 13px; font-weight: 600; }
+        .print-indicator .pi-sub { color: #94a3b8; font-size: 11px; }
 
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 100;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.4);
+        .t-box { position: fixed; top: 72px; right: 18px; z-index: 9998; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+        .t-i {
+            padding: 12px 18px; border-radius: 12px; font-size: 12.5px; font-weight: 500;
+            color: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.15); display: flex; align-items: center; gap: 8px;
+            animation: tIn .3s ease-out; max-width: 340px; pointer-events: auto;
         }
+        .t-i.ok { background: #059669; }
+        .t-i.nf { background: #0284c7; }
+        .t-i.wr { background: #d97706; }
+        .t-i.bd { background: #dc2626; }
+        @keyframes tIn { from { opacity:0; transform:translateX(50px); } to { opacity:1; transform:translateX(0); } }
 
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 400px;
-            border-radius: 8px;
-        }
+        .tp-c { padding: 9px 10px; border: 1.5px solid var(--border); border-radius: 9px; cursor: pointer; transition: all .2s; background: var(--card); text-align: center; }
+        .tp-c:hover { border-color: var(--accent); background: var(--accent-lt); }
+        .tp-c.on { border-color: var(--accent); background: var(--accent-lt); box-shadow: 0 0 0 3px rgba(15,118,110,.1); }
 
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
+        .sh-hd { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; padding: 7px 0; border-bottom: 1px solid var(--border); }
+        .sh-hd .cv2 { transition: transform .25s; font-size: 9px; color: #94a3b8; }
+        .sh-hd.op .cv2 { transform: rotate(180deg); }
+        .sh-bd { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+        .sh-bd.op { max-height: 6000px; }
 
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
+        .wc-b { display: inline-flex; align-items: center; gap: 4px; font-size: 9.5px; color: var(--muted); background: var(--surface); padding: 2px 7px; border-radius: 20px; }
 
-        /* Clean UI for forms */
-        .auth-form input {
-            background: white;
-            border: 1px solid #d1d5db;
-            border-radius: 0.5rem;
-            padding: 0.75rem 1rem;
-            width: 100%;
-            margin-bottom: 1rem;
-        }
+        .fsc::-webkit-scrollbar { width: 4px; }
+        .fsc::-webkit-scrollbar-track { background: transparent; }
+        .fsc::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .dark-mode .fsc::-webkit-scrollbar-thumb { background: #334155; }
 
-        .auth-form button {
-            background: #6d28d9;
-            color: white;
-            border-radius: 0.5rem;
-            padding: 0.75rem;
-            width: 100%;
-            font-weight: 600;
-        }
+        @keyframes sPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(15,118,110,.3); } 50% { box-shadow: 0 0 0 5px rgba(15,118,110,0); } }
+        .bp { animation: sPulse 2.5s infinite; }
+        .kb { font-size: 9px; background: var(--surface); color: #94a3b8; padding: 1px 5px; border-radius: 4px; font-family: monospace; border: 1px solid var(--border); }
 
-        .auth-form button:hover {
-            background: #5b21b6;
-        }
+        .stat-bar { display: flex; align-items: center; gap: 12px; padding: 7px 14px; background: var(--surface); border-top: 1px solid var(--border); font-size: 10px; color: var(--muted); }
+        .stat-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: dotB 2s infinite; }
+        .stat-dot.idle { background: #94a3b8; animation: none; }
+        @keyframes dotB { 0%,100% { opacity:1; } 50% { opacity:.4; } }
 
-        /* Dashboard styles */
-        #dashboardModal .modal-content {
-            max-width: 500px;
-        }
+        .tg-wrap { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .tg-track { width: 34px; height: 18px; border-radius: 9px; background: #cbd5e1; position: relative; transition: background .2s; flex-shrink: 0; }
+        .tg-track.on { background: var(--accent); }
+        .tg-track::after { content: ''; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.15); transition: transform .2s; }
+        .tg-track.on::after { transform: translateX(16px); }
+        .tg-label { font-size: 10px; color: var(--muted); font-weight: 500; }
 
-        .user-info {
-            background: #f3f4f6;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-top: 1rem;
-        }
+        .q-badge { display: inline-flex; align-items: center; gap: 3px; font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; padding: 1px 6px; border-radius: 5px; }
+        .q-badge.low { background: #fef3c7; color: #92400e; }
+        .q-badge.mid { background: #dbeafe; color: #1e40af; }
+        .q-badge.hi { background: #d1fae5; color: #065f46; }
 
-        .user-info p {
-            margin-bottom: 0.5rem;
-            color: #374151;
+        @media print {
+            .no-print, .preview-only { display: none !important; }
+            .print-indicator, .t-box { display: none !important; }
+            body { background: #fff !important; }
+            .bg-dots { display: none !important; }
+            .pv-outer, .pv-wrap { box-shadow: none !important; padding: 0 !important; margin: 0 !important; background: #fff !important; border-radius: 0 !important; border: none !important; overflow: visible !important; max-height: none !important; }
+            .a4-cv { width: 210mm !important; min-height: 297mm !important; margin: 0 !important; padding: 14mm 18mm !important; box-shadow: none !important; page-break-inside: auto; }
+            @page { size: A4 portrait; margin: 0; }
         }
-
-        /* Logo styles */
-        .site-logo {
-            height: 40px;
-            width: auto;
-        }
+        @media (max-width: 1024px) { .hide-sm { display: none !important; } }
     </style>
 </head>
-<body class="scroll-smooth">
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="mobile-menu">
-        <span class="close-btn" id="closeMenu">&times;</span>
-        <a href="#home">Beranda</a>
-        <a href="#books">Koleksi</a>
-        <a href="#categories">Kategori</a>
-        <a href="#about">Tentang</a>
-        <a href="#" id="mobileLogin">Masuk</a>
-        <a href="#" id="mobileRegister">Daftar</a>
-        <a href="#" id="mobileDashboard" style="display: none;">Dashboard</a>
-        <a href="#" id="mobileLogout" style="display: none;">Keluar</a>
-    </div>
+<body>
 
-    <!-- Navigation -->
-    <nav class="glass-effect fixed w-full z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center">
-                    <img src="https://via.placeholder.com/150x40?text=BookVerse+Logo" alt="BookVerse Logo" class="site-logo">
-                </div>
-                
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="text-white hover:text-purple-200 transition-colors">Beranda</a>
-                    <a href="#books" class="text-white hover:text-purple-200 transition-colors">Koleksi</a>
-                    <a href="#categories" class="text-white hover:text-purple-200 transition-colors">Kategori</a>
-                    <a href="#about" class="text-white hover:text-purple-200 transition-colors">Tentang</a>
-                </div>
-                
-                <div class="flex items-center space-x-4">
-                    <button id="loginBtn" class="bg-white text-purple-600 px-6 py-2 rounded-full font-semibold hover:bg-purple-50 transition-colors">
-                        Masuk
-                    </button>
-                    <button id="registerBtn" class="hidden md:block bg-purple-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-700 transition-colors">
-                        Daftar
-                    </button>
-                    <button id="dashboardBtn" class="hidden bg-green-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-700 transition-colors">
-                        Dashboard
-                    </button>
-                    <button id="logoutBtn" class="hidden bg-red-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-red-700 transition-colors">
-                        Keluar
-                    </button>
-                    <button id="menuToggle" class="md:hidden text-white">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
+<div class="bg-dots"></div>
+<div class="t-box" id="tBox"></div>
+<div class="print-indicator no-print" id="printInd">
+    <div class="pi-icon"><i class="fa-solid fa-print"></i></div>
+    <div class="pi-text">Menyiapkan cetak...</div>
+    <div class="pi-sub">Pilih "Save as PDF" di dialog cetak</div>
+</div>
+
+<nav class="bg-slate-950 text-white sticky top-0 z-50 no-print">
+    <div class="max-w-[1560px] mx-auto px-4 md:px-6 py-3 flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5 min-w-0">
+            <div class="w-9 h-9 rounded-lg bg-blue-500/15 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-graduation-cap text-blue-400 text-sm"></i></div>
+            <div class="min-w-0">
+                <h1 class="text-[15px] font-bold tracking-tight truncate">FreshGrad Hub</h1>
+                <p class="text-[8px] text-slate-500 -mt-0.5 tracking-widest uppercase">Optimized for Entry Level</p>
             </div>
         </div>
-    </nav>
-
-    <!-- Login Modal -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 class="text-center text-2xl font-bold mb-4 text-gray-800">Masuk ke BookVerse</h2>
-            <form id="loginForm" class="auth-form">
-                <input type="email" id="email" placeholder="Email" required>
-                <input type="password" id="password" placeholder="Password" required>
-                <button type="submit">Masuk</button>
-            </form>
+        <div class="flex items-center gap-1.5 flex-shrink-0">
+            <button id="btnDark" title="Mode Gelap (D)" class="flex items-center justify-center w-8 h-8 bg-white/8 hover:bg-white/14 rounded-lg transition text-slate-400 hover:text-white"><i class="fa-solid fa-moon text-xs"></i></button>
+            <button id="btnLoad" title="Muat Draft (Ctrl+M)" class="hide-sm flex items-center gap-1.5 px-3 h-8 bg-white/8 hover:bg-white/14 rounded-lg text-[10.5px] font-medium transition"><i class="fa-solid fa-folder-open"></i>Muat</button>
+            <button id="btnSave" title="Simpan Draft (Ctrl+S)" class="hide-sm flex items-center gap-1.5 px-3 h-8 bg-white/8 hover:bg-white/14 rounded-lg text-[10.5px] font-medium transition"><i class="fa-solid fa-floppy-disk"></i>Simpan</button>
+            <div class="w-px h-5 bg-white/10 mx-0.5 hide-sm"></div>
+            <button id="btnCopy" title="Salin Teks" class="hide-sm flex items-center gap-1.5 px-3 h-8 bg-white/8 hover:bg-white/14 rounded-lg text-[10.5px] font-medium transition"><i class="fa-solid fa-copy"></i>Salin</button>
+            <button id="btnPng" title="Unduh PNG" class="flex items-center gap-1.5 px-3.5 h-8 bg-violet-600 hover:bg-violet-700 rounded-lg text-[10.5px] font-semibold transition"><i class="fa-solid fa-image"></i><span class="hide-sm">PNG</span></button>
+            <button id="btnPdf" title="Cetak PDF (Ctrl+P)" class="flex items-center gap-1.5 px-3.5 h-8 bg-blue-600 hover:bg-blue-700 rounded-lg text-[10.5px] font-semibold transition bp"><i class="fa-solid fa-file-pdf"></i><span class="hide-sm">PDF</span></button>
+            <button id="btnPrint" class="flex items-center gap-1.5 px-3.5 h-8 bg-white text-slate-900 hover:bg-slate-100 rounded-lg text-[10.5px] font-semibold transition"><i class="fa-solid fa-print"></i><span class="hide-sm">Cetak</span></button>
+            <button id="btnReset" title="Reset" class="flex items-center justify-center w-8 h-8 text-red-400 hover:text-red-300 hover:bg-white/8 rounded-lg transition"><i class="fa-solid fa-rotate-left text-xs"></i></button>
         </div>
     </div>
+</nav>
 
-    <!-- Register Modal -->
-    <div id="registerModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 class="text-center text-2xl font-bold mb-4 text-gray-800">Daftar di BookVerse</h2>
-            <form id="registerForm" class="auth-form">
-                <input type="text" id="reg-name" placeholder="Nama" required>
-                <input type="email" id="reg-email" placeholder="Email" required>
-                <input type="password" id="reg-password" placeholder="Password" required>
-                <button type="submit">Daftar</button>
-            </form>
-        </div>
-    </div>
+<div class="max-w-[1560px] mx-auto px-4 md:px-6 py-5">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
 
-    <!-- Dashboard Modal -->
-    <div id="dashboardModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 class="text-center text-2xl font-bold mb-4 text-gray-800">Dashboard Pengguna</h2>
-            <div id="userInfo" class="user-info">
-                <!-- User info will be populated here -->
-            </div>
-            <button id="closeDashboard" class="mt-4 bg-gray-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-gray-600 w-full">Tutup</button>
-        </div>
-    </div>
-
-    <!-- Hero Section -->
-    <section id="home" class="pt-24 pb-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="text-center md:text-left">
-                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-                        Tingkatkan Skill Coding Anda dengan 
-                        <span class="text-yellow-300">E-Book Premium</span>
-                    </h1>
-                    <p class="text-purple-100 text-lg md:text-xl mb-8 leading-relaxed">
-                        Jelajahi koleksi e-book terbesar tentang pemrograman dan teknologi. 
-                        Dari Python hingga AI, temukan bacaan yang menginspirasi karir IT Anda.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                        <a href="#books" class="bg-yellow-400 text-purple-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition-colors pulse-animation">
-                            Jelajahi Sekarang
-                            <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                        <button id="demoBtn" class="glass-effect text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/20 transition-colors">
-                            <i class="fas fa-play-circle mr-2"></i>
-                            Lihat Demo
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="relative">
-                    <div class="glass-effect rounded-3xl p-6 floating-animation">
-                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0044e94e-2676-4bab-a3f3-856873666556.png" alt="Antarmuka perpustakaan digital modern menampilkan cover e-book pemrograman seperti Python dan JavaScript dalam layout grid dengan pencahayaan lembut" class="rounded-2xl w-full h-auto" />
-                    </div>
-                    <div class="absolute -top-4 -right-4 glass-effect rounded-2xl p-4 w-24 h-24 flex items-center justify-center">
-                        <i class="fas fa-star text-yellow-400 text-3xl"></i>
-                    </div>
-                    <div class="absolute -bottom-4 -left-4 glass-effect rounded-2xl p-4 w-20 h-20 flex items-center justify-center">
-                        <i class="fas fa-code-branch text-green-400 text-2xl"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="text-center glass-effect rounded-2xl p-6">
-                    <div class="text-3xl md:text-4xl font-bold text-white mb-2">10K+</div>
-                    <div class="text-purple-200">E-book Coding</div>
-                </div>
-                <div class="text-center glass-effect rounded-2xl p-6">
-                    <div class="text-3xl md:text-4xl font-bold text-white mb-2">50K+</div>
-                    <div class="text-purple-200">Developer Aktif</div>
-                </div>
-                <div class="text-center glass-effect rounded-2xl p-6">
-                    <div class="text-3xl md:text-4xl font-bold text-white mb-2">200+</div>
-                    <div class="text-purple-200">Penulis Expert</div>
-                </div>
-                <div class="text-center glass-effect rounded-2xl p-6">
-                    <div class="text-3xl md:text-4xl font-bold text-white mb-2">24/7</div>
-                    <div class="text-purple-200">Dukungan Teknis</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Books -->
-    <section id="books" class="py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">E-book Coding Terpopuler</h2>
-                <p class="text-purple-200 text-lg">Temukan e-book pemrograman yang paling banyak dibaca oleh developer</p>
-            </div>
-            
-            <div id="bookGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Books will be populated dynamically -->
-            </div>
-            
-            <div class="text-center mt-12">
-                <a href="#categories" class="glass-effect text-white px-8 py-3 rounded-full font-semibold hover:bg-white/20 transition-colors">
-                    Lihat Semua E-book
-                    <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Categories -->
-    <section id="categories" class="py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Jelajahi Kategori Coding</h2>
-                <p class="text-purple-200 text-lg">Klik kategori untuk filter e-book</p>
-            </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                <div class="category-chip glass-effect rounded-2xl p-4 text-center" data-category="Python">
-                    <img src="https://www.python.org/static/community_logos/python-logo-master-v3-TM.png" alt="Python Logo" class="h-8 mx-auto mb-2">
-                    <div class="text-white font-medium">Python</div>
-                </div>
-                <div class="category-chip glass-effect rounded-2xl p-4 text-center" data-category="JavaScript">
-                    <i class="fab fa-js-square text-2xl text-yellow-400 mb-2"></i>
-                    <div class="text-white font-medium">JavaScript</div>
-                </div>
-                <div class="category-chip glass-effect rounded-2xl p-4 text-center" data-category="Java">
-                    <i class="fab fa-java text-2xl text-red-400 mb-2"></i>
-                    <div class="text-white font-medium">Java</div>
-                </div>
-                <div class="category-chip glass-effect rounded-2xl p-4 text-center" data-category="AI/ML">
-                    <i class="fas fa-brain text-2xl text-purple-400 mb-2"></i>
-                    <div class="text-white font-medium">AI/ML</div>
-                </div>
-                <div class="category-chip glass-effect rounded-2xl p-4 text-center" data-category="DevOps">
-                    <i class="fas fa-server text-2xl text-green-400 mb-2"></i>
-                    <div class="text-white font-medium">DevOps</div>
-                </div>
-                <div class="category-chip glass-effect rounded-2xl p-4 text-center" data-category="Web Dev">
-                    <i class="fab fa-react text-2xl text-cyan-400 mb-2"></i>
-                    <div class="text-white font-medium">Web Dev</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Apa Kata Developer</h2>
-                <p class="text-purple-200 text-lg">Testimoni dari developer yang menggunakan BookVerse</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="glass-effect rounded-3xl p-6">
-                    <div class="text-yellow-400 mb-4">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="text-white mb-4">"Platform terbaik untuk e-book coding. Koleksi Python-nya lengkap dan mudah dipahami!"</p>
-                    <div class="flex items-center">
-                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c326b26f-011b-4237-9424-ed49f14b9c3c.png" alt="Foto profil developer wanita dengan senyum ramah" class="rounded-full w-12 h-12 mr-3" />
-                        <div>
-                            <div class="text-white font-semibold">Sarah Wijaya</div>
-                            <div class="text-purple-200 text-sm">Software Engineer</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="glass-effect rounded-3xl p-6">
-                    <div class="text-yellow-400 mb-4">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="text-white mb-4">"E-book JavaScript di sini top-notch. Membantu saya naik level dalam web dev!"</p>
-                    <div class="flex items-center">
-                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9938d24c-0c60-4872-b8c9-99feba81a9e9.png" alt="Foto profil developer pria dengan kacamata" class="rounded-full w-12 h-12 mr-3" />
-                        <div>
-                            <div class="text-white font-semibold">Budi Santoso</div>
-                            <div class="text-purple-200 text-sm">Full-Stack Developer</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="glass-effect rounded-3xl p-6">
-                    <div class="text-yellow-400 mb-4">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <p class="text-white mb-4">"Proses beli mudah, dukungan cepat. Ideal untuk belajar AI dari nol."</p>
-                    <div class="flex items-center">
-                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b0c5d269-58f3-4b40-8ba1-5b8fce43143d.png" alt="Foto profil developer wanita muda dengan ekspresi senang" class="rounded-full w-12 h-12 mr-3" />
-                        <div>
-                            <div class="text-white font-semibold">Dewi Lestari</div>
-                            <div class="text-purple-200 text-sm">Data Scientist</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="py-16">
-        <div class="max-w-4xl mx-auto text-center">
-            <div class="glass-effect rounded-3xl p-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
-                    Siap Tingkatkan Skill Coding Anda?
-                </h2>
-                <p class="text-purple-200 text-lg mb-8">
-                    Bergabung dengan ribuan developer yang sudah maju karirnya melalui e-book BookVerse
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button id="ctaRegister" class="bg-yellow-400 text-purple-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition-colors">
-                        Daftar Sekarang
-                        <i class="fas fa-arrow-right ml-2"></i>
-                    </button>
-                    <button id="ctaDemo" class="glass-effect text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/20 transition-colors">
-                        <i class="fas fa-book-open mr-2"></i>
-                        Lihat Demo
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Tentang BookVerse</h2>
-                <p class="text-purple-200 text-lg">Platform khusus e-book pemrograman yang membantu developer belajar dan berkembang.</p>
-            </div>
-            <div class="glass-effect rounded-3xl p-8 text-white">
-                <p class="mb-4">BookVerse didirikan pada 2024 dengan misi menyediakan akses mudah ke e-book berkualitas tinggi tentang coding dan teknologi. Kami fokus pada konten yang praktis, up-to-date, dan ditulis oleh expert di bidangnya.</p>
-                <p>Kami mendukung berbagai format e-book yang kompatibel dengan perangkat mobile dan desktop, serta menyediakan fitur pencarian lanjutan untuk menemukan topik spesifik seperti algoritma, framework, dan best practices.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="glass-effect mt-16 py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <img src="https://via.placeholder.com/150x40?text=BookVerse+Logo" alt="BookVerse Logo" class="site-logo mb-6">
-                    <p class="text-purple-200 mb-6">
-                        Platform e-book premium khusus pemrograman untuk developer Indonesia.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-yellow-400 transition-colors">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-yellow-400 transition-colors">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-yellow-400 transition-colors">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-yellow-400 transition-colors">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-white font-semibold mb-6">Produk</h3>
-                    <ul class="space-y-3">
-                        <li><a href="#books" class="text-purple-200 hover:text-white transition-colors">E-book Coding</a></li>
-                        <li><a href="#" class="text-purple-200 hover:text-white transition-colors">Tutorial Interaktif</a></li>
-                        <li><a href="#" class="text-purple-200 hover:text-white transition-colors">Course Bundle</a></li>
-                        <li><a href="#" class="text-purple-200 hover:text-white transition-colors">Update Berkala</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-white font-semibold mb-6">Perusahaan</h3>
-                    <ul class="space-y-3">
-                        <li><a href="#about" class="text-purple-200 hover:text-white transition-colors">Tentang Kami</a></li>
-                        <li><a href="#" class="text-purple-200 hover:text-white transition-colors">Karir</a></li>
-                        <li><a href="#" class="text-purple-200 hover:text-white transition-colors">Blog</a></li>
-                        <li><a href="#" class="text-purple-200 hover:text-white transition-colors">Kontak</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-white font-semibold mb-6">Dukungan</h3>
-                    <ul class="space-y-3">
-                        <li><a href="#" class="text-purple-200 hover:text-white transition-colors">Bantuan</a></li>
-                        <li><a href="#" class="text-purple-200 hover:text-white transition-colors">FAQ</a></li>
-                        <li><a href="#" class="text-purple-200 hover:text-white transition-colors">Kebijakan Privasi</a></li>
-                        <li><a href="#" class="text-purple-200 hover:text-white transition-colors">Syarat & Ketentuan</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="border-t border-purple-300/20 mt-12 pt-8">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <p class="text-purple-200 text-sm">
-                        © 2024 BookVerse. All rights reserved.
-                    </p>
-                    <div class="flex space-x-6 mt-4 md:mt-0">
-                        <a href="#" class="text-purple-200 hover:text-white text-sm transition-colors">Privacy Policy</a>
-                        <a href="#" class="text-purple-200 hover:text-white text-sm transition-colors">Terms of Service</a>
-                        <a href="#" class="text-purple-200 hover:text-white text-sm transition-colors">Cookie Policy</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Supabase Initialization (Replace with your Supabase URL and Anon Key)
-        const supabaseUrl = 'https://your-supabase-url.supabase.co';
-        const supabaseKey = 'your-anon-key';
-        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
-        // E-book Marketplace Data
-        const ebooks = [
-            {
-                id: 'python-mastery',
-                title: 'Python Mastery',
-                description: 'Panduan lengkap pemrograman Python untuk pemula hingga advanced',
-                category: 'Python',
-                image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d8231806-f286-44da-bf17-abbaff434bc5.png',
-                rating: 4.8,
-                price: 'Rp 89.000',
-                badge: 'Bestseller',
-                badgeColor: 'bg-yellow-400 text-purple-900'
-            },
-            {
-                id: 'javascript-essentials',
-                title: 'JavaScript Essentials',
-                description: 'Belajar JavaScript modern untuk web development',
-                category: 'JavaScript',
-                image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/64b5ad11-9a69-4d20-8d96-171bf72710d1.png',
-                rating: 5.0,
-                price: 'Rp 75.000',
-                badge: null
-            },
-            {
-                id: 'ai-development',
-                title: 'AI Development',
-                description: 'Pengembangan AI dengan Python dan TensorFlow',
-                category: 'AI/ML',
-                image: 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d20e4207-e3d6-43d0-adef-451cad3aa6fc.png',
-                rating: 4.2,
-                price: 'Rp 82.000',
-                badge: 'New',
-                badgeColor: 'bg-red-400 text-white'
-            }
-        ];
-
-        // Populate e-books dynamically
-        const bookGrid = document.getElementById('bookGrid');
-        function renderBooks(category = null) {
-            bookGrid.innerHTML = '';
-            const filteredBooks = category ? ebooks.filter(book => book.category === category) : ebooks;
-            if (filteredBooks.length === 0) {
-                bookGrid.innerHTML = '<p class="text-white text-center col-span-3">Tidak ada e-book ditemukan untuk kategori ini.</p>';
-                return;
-            }
-            filteredBooks.forEach(book => {
-                const stars = Array(Math.floor(book.rating)).fill('<i class="fas fa-star"></i>').join('') +
-                    (book.rating % 1 !== 0 ? '<i class="fas fa-star-half-alt"></i>' : '');
-                const bookElement = document.createElement('div');
-                bookElement.className = 'book-card glass-effect rounded-3xl p-6 cursor-pointer';
-                bookElement.dataset.category = book.category;
-                bookElement.innerHTML = `
-                    <div class="relative mb-6">
-                        <img src="${book.image}" alt="Cover e-book ${book.title}" class="rounded-2xl w-full h-64 object-cover" />
-                        ${book.badge ? `<div class="absolute top-4 left-4 ${book.badgeColor} px-3 py-1 rounded-full text-sm font-bold">${book.badge}</div>` : ''}
-                    </div>
-                    <h3 class="text-white font-semibold text-xl mb-2">${book.title}</h3>
-                    <p class="text-purple-200 mb-4">${book.description}</p>
+        <div class="lg:col-span-5 no-print">
+            <div class="bg-[var(--card)] rounded-2xl shadow-lg border border-[var(--border)] overflow-hidden flex flex-col" style="max-height:calc(100vh - 100px);">
+                <div class="px-5 pt-4 pb-3 border-b border-[var(--border)] flex-shrink-0">
                     <div class="flex items-center justify-between">
-                        <div class="text-yellow-400">
-                            ${stars}
-                            <span class="text-white ml-2">${book.rating}</span>
-                        </div>
-                        <div class="text-white font-bold text-xl">${book.price}</div>
+                        <div><h2 class="text-[16px] font-bold text-[var(--text)]">Isi Data Fresh Graduate</h2><p class="text-[10px] text-[var(--muted)] mt-0.5">Highlight potensimu walau pengalaman kerja terbatas.</p></div>
+                        <div class="flex items-center gap-1"><span class="kb">Ctrl+S</span></div>
                     </div>
-                    <a href="/market/ebook?book=${book.id}" class="mt-4 block w-full bg-purple-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-purple-700 text-center">Beli Sekarang</a>
-                `;
-                bookGrid.appendChild(bookElement);
-            });
+                </div>
+                <div class="fsc px-5 pb-5 overflow-y-auto flex-1">
+
+                    <div class="mt-3 mb-4">
+                        <label class="fl"><i class="fa-solid fa-wand-magic-sparkles mr-1 text-blue-500"></i>Template Cepat</label>
+                        <div class="grid grid-cols-4 gap-1.5" id="tplRow">
+                            <div class="tp-c on" data-tpl="fresh"><div class="text-[9.5px] font-bold text-[var(--text)]">Umum</div><div class="text-[7.5px] text-[var(--muted)]">SMA/SMK/S1</div></div>
+                            <div class="tp-c" data-tpl="tech"><div class="text-[9.5px] font-bold text-[var(--text)]">Teknik/IT</div><div class="text-[7.5px] text-[var(--muted)]">Praktikal</div></div>
+                            <div class="tp-c" data-tpl="biz"><div class="text-[9.5px] font-bold text-[var(--text)]">Bisnis/Aktn</div><div class="text-[7.5px] text-[var(--muted)]">Admin</div></div>
+                            <div class="tp-c" data-tpl="creative"><div class="text-[9.5px] font-bold text-[var(--text)]">Desain/Sastra</div><div class="text-[7.5px] text-[var(--muted)]">Portofolio</div></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-1">
+                        <div class="sh-hd op" data-sec><span class="text-[12px] font-bold text-[var(--text)]"><i class="fa-solid fa-user mr-1.5 text-blue-600 text-[10px]"></i>Data Diri</span><i class="fa-solid fa-chevron-down cv2"></i></div>
+                        <div class="sh-bd op"><div class="pt-3 space-y-2.5">
+                            <div><label class="fl" for="f_nama">Nama Lengkap <span class="req">*</span></label><input id="f_nama" class="fi cv-input" placeholder="Sesuai Ijazah" value="Budi Santoso"><div class="fe" id="e_nama">Wajib diisi</div></div>
+                            <div><label class="fl" for="f_title">Judul Target Pekerjaan <span class="req">*</span></label><input id="f_title" class="fi cv-input" placeholder="Contoh: Fresh Graduate Administrative Staff" value="Fresh Graduate Administrative Staff"><div class="fe" id="e_title">Wajib diisi</div></div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div><label class="fl" for="f_email">Email <span class="req">*</span></label><input id="f_email" class="fi cv-input" type="email" placeholder="nama@email.com" value="budi.santoso@email.com"><div class="fe" id="e_email">Format tidak valid</div></div>
+                                <div><label class="fl" for="f_phone">No. HP/WA <span class="req">*</span></label><input id="f_phone" class="fi cv-input" placeholder="08xx-xxxx-xxxx" value="0812-3456-7890"></div>
+                            </div>
+                            <div><label class="fl" for="f_loc">Domisili</label><input id="f_loc" class="fi cv-input" placeholder="Kota, Siap Pindah" value="Jakarta Selatan, Bersedia Tempuh"></div>
+                            <div>
+                                <label class="fl" for="f_linkedin">LinkedIn URL <span class="req">*</span></label>
+                                <input id="f_linkedin" class="fi cv-input" placeholder="https://linkedin.com/in/namaprofil" value="https://linkedin.com/in/budisantoso">
+                                <div class="fe" id="e_linkedin">Format: https://linkedin.com/in/namaprofil</div>
+                                <div class="linkedin-hint"><i class="fa-solid fa-circle-info" style="font-size:8px;margin-right:3px"></i>Penting bagi fresh graduate untuk memiliki profil LinkedIn yang lengkap.</div>
+                            </div>
+                            <div><label class="fl" for="f_portfolio">Link Portofolio/Behance/Github</label><input id="f_portfolio" class="fi cv-input" placeholder="Link karya/proyek tugas akhir" value=""></div>
+                        </div></div>
+                    </div>
+
+                    <div class="mb-1">
+                        <div class="sh-hd op" data-sec><span class="text-[12px] font-bold text-[var(--text)]"><i class="fa-solid fa-align-left mr-1.5 text-blue-600 text-[10px]"></i>Ringkasan (Objective)</span><i class="fa-solid fa-chevron-down cv2"></i></div>
+                        <div class="sh-bd op"><div class="pt-3 space-y-2.5">
+                            <div><label class="fl" for="f_summary">Tentang Saya <span class="req">*</span></label><textarea id="f_summary" class="fi cv-input" rows="3" placeholder="Jelaskan jurusan, semangat belajar, dan pencapaian akademik (IPK/Prestasi).">Lulusan baru Sarjana Manajemen dengan IPK 3.75. Memiliki ketertarikan kuat dalam administrasi dan manajemen perkantoran. Aktif dalam organisasi kampus sebagai bendahara, terbiasa mengelola data dengan teliti. Bertekad memberikan kontribusi positif dan belajar dengan cepat di lingkungan profesional.</textarea><div class="fe" id="e_summary">Wajib diisi</div></div>
+                        </div></div>
+                    </div>
+
+                    <div class="mb-1">
+                        <div class="sh-hd op" data-sec><span class="text-[12px] font-bold text-[var(--text)]"><i class="fa-solid fa-briefcase mr-1.5 text-blue-600 text-[10px]"></i>Pengalaman (Magang/Org)</span><i class="fa-solid fa-chevron-down cv2"></i></div>
+                        <div class="sh-bd op"><div class="pt-3 space-y-2.5">
+                            <p class="text-[9.5px] text-[var(--muted)] leading-relaxed">Gunakan bagian ini untuk Magang (PKL), KKP, atau jabatan di Organisasi Kampus (BEM/HIMA).</p>
+                            <div><label class="fl" for="f_exp">Pengalaman 1 (Wajib ada)</label><textarea id="f_exp" class="fi cv-input" rows="4" placeholder="Jabatan&#10;Nama Perusahaan/Organisasi, Kota&#10;Bulan Tahun – Bulan Tahun&#10;• Poin pekerjaan">Bendahara Umum HIMA Manajemen&#10;Universitas Indonesia, Depok&#10;Jan 2023 – Des 2023&#10;Mengelola keuangan organisasi dengan anggaran Rp 15 juta/tahun&#10;Membuat laporan keuangan bulanan menggunakan Microsoft Excel&#10;Berkolaborasi dengan 5 divisi untuk perencanaan acara</textarea></div>
+                            <div><label class="fl" for="f_exp2">Pengalaman 2</label><textarea id="f_exp2" class="fi cv-input" rows="3" placeholder="Magang / Part-time / Proyek">Intern Administrative Staff&#10;PT. Maju Mundur, Tangerang&#10;Jun 2024 – Agu 2024&#10;Membantu pengarsipan dokumen fisik dan digital&#10;Menerima tamu dan menjawab telepon kantor</textarea></div>
+                        </div></div>
+                    </div>
+
+                    <div class="mb-1">
+                        <div class="sh-hd op" data-sec><span class="text-[12px] font-bold text-[var(--text)]"><i class="fa-solid fa-graduation-cap mr-1.5 text-blue-600 text-[10px]"></i>Pendidikan (Penting!)</span><i class="fa-solid fa-chevron-down cv2"></i></div>
+                        <div class="sh-bd op"><div class="pt-3 space-y-2.5">
+                            <div><label class="fl" for="f_edu">Pendidikan Terakhir <span class="req">*</span></label><textarea id="f_edu" class="fi cv-input" rows="3" placeholder="Nama Universitas, Kota&#10;Jurusan (S1/D3) — Gelar&#10;Tahun Lulus">Universitas Indonesia, Depok&#10;Manajemen — Sarjana Ekonomi (S.E.)&#10;Lulus: 2024</textarea><div class="fe" id="e_edu">Wajib diisi</div></div>
+                            <div><label class="fl" for="f_edu2">Pendidikan Sebelumnya</label><textarea id="f_edu2" class="fi cv-input" rows="3" placeholder="SMA/SMK">SMA Negeri 1 Jakarta&#10;IPA — IPS&#10;2018 – 2021</textarea></div>
+                        </div></div>
+                    </div>
+
+                    <div class="mb-1">
+                        <div class="sh-hd op" data-sec><span class="text-[12px] font-bold text-[var(--text)]"><i class="fa-solid fa-rocket mr-1.5 text-blue-600 text-[10px]"></i>Keahlian & Tools</span><i class="fa-solid fa-chevron-down cv2"></i></div>
+                        <div class="sh-bd op"><div class="pt-3 space-y-2.5">
+                            <p class="text-[9.5px] text-[var(--muted)] leading-relaxed">Sertakan soft skill (komunikasi, kerja tim) dan hard skill (software).</p>
+                            <div><label class="fl" for="f_skills">Daftar Keahlian <span class="req">*</span></label><textarea id="f_skills" class="fi cv-input" rows="5" placeholder="Skill — Level/Ket">Microsoft Office — Mahir (Excel VLOOKUP, Pivot Table)&#10;Administrasi — Pengarsipan, manajemen data&#10;Bahasa Inggris — TOEFL 550&#10;Komunikasi — Public Speaking, Negotiation&#10;Canva — Desain poster dan media sosial</textarea><div class="fe" id="e_skills">Wajib diisi</div></div>
+                        </div></div>
+                    </div>
+
+                    <div class="mb-1">
+                        <div class="sh-hd" data-sec><span class="text-[12px] font-bold text-[var(--text)]"><i class="fa-solid fa-sliders mr-1.5 text-slate-400 text-[10px]"></i>Pengaturan</span><i class="fa-solid fa-chevron-down cv2"></i></div>
+                        <div class="sh-bd"><div class="pt-3 space-y-2.5">
+                            <div>
+                                <label class="fl">Font CV</label>
+                                <div class="grid grid-cols-3 gap-1.5" id="fontRow">
+                                    <div class="tp-c on" data-font="cv-inter" style="padding:7px 4px"><div style="font-family:Inter,sans-serif;font-size:10px;font-weight:700;color:var(--text)">Inter</div></div>
+                                    <div class="tp-c" data-font="cv-roboto" style="padding:7px 4px"><div style="font-family:Roboto,sans-serif;font-size:10px;font-weight:700;color:var(--text)">Roboto</div></div>
+                                    <div class="tp-c" data-font="cv-jakarta" style="padding:7px 4px"><div style="font-family:Plus Jakarta Sans,sans-serif;font-size:10px;font-weight:700;color:var(--text)">Jakarta</div></div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div><label class="fl" for="f_fs">Ukuran Font</label><select id="f_fs" class="fi cv-input"><option value="0.88">Kecil</option><option value="0.92" selected>Standar</option><option value="0.96">Besar</option></select></div>
+                                <div><label class="fl" for="f_lh">Jarak Baris</label><select id="f_lh" class="fi cv-input"><option value="1.45">Rapat</option><option value="1.55" selected>Standar</option><option value="1.65">Longgar</option></select></div>
+                            </div>
+                            <div>
+                                <label class="fl">Kualitas PDF</label>
+                                <div class="grid grid-cols-3 gap-1.5" id="qualRow">
+                                    <div class="tp-c" data-qual="low" style="padding:7px 4px"><div class="text-[9.5px] font-bold text-[var(--text)]">Standar</div><span class="q-badge low">72 DPI</span></div>
+                                    <div class="tp-c on" data-qual="mid" style="padding:7px 4px"><div class="text-[9.5px] font-bold text-[var(--text)]">Tinggi</div><span class="q-badge mid">150 DPI</span></div>
+                                    <div class="tp-c" data-qual="hi" style="padding:7px 4px"><div class="text-[9.5px] font-bold text-[var(--text)]">Maksimal</div><span class="q-badge hi">300 DPI</span></div>
+                                </div>
+                            </div>
+                            <div class="space-y-2 pt-1">
+                                <div class="tg-wrap" id="tgAutoWrap"><div class="tg-track on" id="tgAutoSave"></div><span class="tg-label">Simpan Otomatis (30 detik)</span></div>
+                            </div>
+                        </div></div>
+                    </div>
+
+                    <div class="mt-4 mb-2 p-3 bg-blue-50 border border-blue-200/80 rounded-xl tip-a">
+                        <p class="text-[10px] text-blue-900 leading-relaxed"><i class="fa-solid fa-lightbulb mr-1"></i><strong>Tips Fresh Grad:</strong> Jika belum punya pengalaman kerja, perbanyak "Proyek" atau "Keikutsertaan Lomba". Jangan hanya tulis "Hobi", tapi tulis "Aktif dalam..."</p>
+                    </div>
+                    <div class="mb-2 p-3 bg-teal-50 border border-teal-200/80 rounded-xl tip-t">
+                        <p class="text-[10px] text-teal-800 leading-relaxed"><i class="fa-regular fa-keyboard mr-1"></i><strong>Pintasan:</strong> <span class="kb">Ctrl+S</span> Simpan <span class="kb">Ctrl+M</span> Muat <span class="kb">Ctrl+P</span> PDF <span class="kb">D</span> Gelap</p>
+                    </div>
+                </div>
+                <div class="stat-bar flex-shrink-0">
+                    <div class="stat-dot idle" id="stDot"></div><span id="stText">Siap</span>
+                    <span id="stAuto" style="display:none;color:#0d9488;font-weight:600"><i class="fa-solid fa-cloud-arrow-up" style="font-size:7px"></i> Auto</span>
+                    <span style="margin-left:auto" id="stTime"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:col-span-7">
+            <div class="pv-outer sticky top-[64px]">
+                <div class="flex items-center justify-between mb-2 px-0.5 no-print">
+                    <h3 class="text-[12px] font-semibold text-[var(--muted)] flex items-center gap-1.5"><i class="fa-solid fa-eye text-blue-600 text-[10px]"></i>Pratinjau CV</h3>
+                    <div class="flex items-center gap-1.5">
+                        <span id="pageInfo" class="text-[8px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full font-bold tracking-wide">A4 — 1 Hal</span>
+                        <button id="btnZoomOut" class="w-6 h-6 rounded-md bg-[var(--card)] hover:bg-slate-100 border border-[var(--border)] flex items-center justify-center text-[10px] text-[var(--muted)] transition"><i class="fa-solid fa-minus"></i></button>
+                        <span class="text-[9px] text-[var(--muted)] font-mono w-7 text-center" id="zLv">100%</span>
+                        <button id="btnZoomIn" class="w-6 h-6 rounded-md bg-[var(--card)] hover:bg-slate-100 border border-[var(--border)] flex items-center justify-center text-[10px] text-[var(--muted)] transition"><i class="fa-solid fa-plus"></i></button>
+                        <button id="btnZoomReset" class="w-6 h-6 rounded-md bg-[var(--card)] hover:bg-slate-100 border border-[var(--border)] flex items-center justify-center text-[10px] text-[var(--muted)] transition"><i class="fa-solid fa-expand"></i></button>
+                    </div>
+                </div>
+                <div class="pv-wrap bg-slate-200/40 border border-[var(--border)] rounded-2xl p-4 overflow-auto" style="max-height:calc(100vh - 120px);">
+                    <div id="sWrp" style="transform-origin:top center;transition:transform .2s;">
+                        <div id="surat" class="a4-cv cv-inter">
+                            <div class="a4-page-guide preview-only"></div>
+                            <div id="sC" style="position:relative;z-index:2;"></div>
+                            <div class="overflow-badge preview-only" id="overflowBadge"><i class="fa-solid fa-layer-group" style="margin-right:4px"></i>Konten melebihi 1 halaman A4</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function v(id) { var e = document.getElementById(id); return e ? e.value.trim() : ''; }
+function kap(s) { return s ? s.replace(/\b\w/g, function (c) { return c.toUpperCase(); }) : ''; }
+
+var curFont = 'cv-inter', curQuality = 'mid', autoSaveOn = true, autoSaveTimer = null, _printing = false, lvTimer = null, checkTimer = null;
+
+var TPL = {
+    fresh: { 
+        f_summary: 'Lulusan baru Sarjana Manajemen dengan IPK 3.75. Memiliki ketertarikan kuat dalam administrasi dan manajemen perkantoran. Aktif dalam organisasi kampus sebagai bendahara, terbiasa mengelola data dengan teliti. Bertekad memberikan kontribusi positif dan belajar dengan cepat di lingkungan profesional.',
+        f_exp: 'Bendahara Umum HIMA Manajemen\nUniversitas Indonesia, Depok\nJan 2023 – Des 2023\nMengelola keuangan organisasi dengan anggaran Rp 15 juta/tahun\nMembuat laporan keuangan bulanan menggunakan Microsoft Excel\nBerkolaborasi dengan 5 divisi untuk perencanaan acara',
+        f_exp2: '',
+        f_skills: 'Microsoft Office — Mahir (Excel VLOOKUP, Pivot Table)\nAdministrasi — Pengarsipan, manajemen data\nBahasa Inggris — TOEFL 550\nKomunikasi — Public Speaking, Negotiation\nCanva — Desain poster dan media sosial',
+        f_certs: '', f_langs: '' 
+    },
+    tech: { 
+        f_summary: 'Fresh Graduate Teknik Informatika dengan pemahaman dasar dalam pengembangan web dan manajemen database. Mengerjakan proyek Tugas Akhir tentang sistem informasi berbasis web. Antusias mempelajari teknologi baru (JavaScript, React) dan siap bekerja dalam tim software development.',
+        f_exp: 'Magang Web Developer\nPT StartUp Lokal, Jakarta\nAgu 2023 – Okt 2023\nMembantu pengembangan frontend menggunakan HTML & CSS\nMembetulkan bug minor pada fitur user profile\nBelajar implementasi REST API menggunakan Postman',
+        f_exp2: 'Asisten Laboratorium Komputer\nUniversitas Teknologi, Bandung\nJan 2023 – Jun 2023\nMembantu dosen dan mahasiswa dalam praktikum Algoritma\nMaintenance 30 unit PC lab',
+        f_skills: 'Programming — Java, Python, JavaScript (ES6)\nWeb Dev — HTML5, CSS3, Bootstrap, Tailwind\nDatabase — MySQL, Firebase dasar\nTools — Git, VS Code, Figma\nBahasa — Inggris (Technical Writing)',
+        f_certs: 'Belajar Dasar Pemrograman Web — Dicoding (2023)\nTOEIC 600 — ETS (2024)', f_langs: 'Bahasa Indonesia — Native\nBahasa Inggris — Intermediate' 
+    },
+    biz: { 
+        f_summary: 'Lulusan D3 Akuntansi yang teliti dan rapi. Berpengalaman melakukan magang di bagian keuangan selama 3 bulan. Terbiasa dengan input data dan rekonsiliasi bank. Mencari posisi Junior Staff atau Finance Assistant untuk mengembangkan karir di bidang akuntansi.',
+        f_exp: 'Magang Keuangan\nCV Karya Abadi, Bekasi\nJun 2024 – Agu 2024\nMembantu input transaksi harian ke sistem Myob\nMelakukan filing faktur dan kwitansi\nBerkontribusi dalam proses stock opname akhir bulan',
+        f_exp2: '',
+        f_skills: 'Akuntansi — Jurnal umum, neraca, laba rugi\nSoftware — Microsoft Excel (Advanced), Zahir, Accurate\nAdministrasi — Manajemen dokumen keuangan\nSoft Skill — Detail oriented, teamwork',
+        f_certs: 'Sertifikat Kompetensi Akuntansi Tingkat 1 — BNSP (2023)', f_langs: 'Bahasa Indonesia — Native\nBahasa Inggris — Basic (Passive)' 
+    },
+    creative: { 
+        f_summary: 'Fresh Graduate Desain Komunikasi Visual dengan portofolio kuat di branding dan media sosial. Pernah memenangkan juara 2 lomba poster nasional. Mampu mengoperasikan Adobe Creative Suite dan tools desain modern. Kreatif, inovatif, dan up-to-date dengan tren desain terkini.',
+        f_exp: 'Freelance Graphic Designer\nSelf-employed, Remote\nJan 2022 – Sekarang\nMendesain logo dan identitas visual untuk 5+ UMKM\nMembuat konten feed dan story Instagram untuk klien F&B\nMengelola komunikasi dengan klien dan revisi desain',
+        f_exp2: 'Anggota Divisi Media & branding BEM\nUniversitas Seni, Yogyakarta\n2021 – 2022\nMendesain merchandise untuk event campus fair\nMenghandle visual during acara (backdrop, spanduk)',
+        f_skills: 'Graphic Design — Photoshop, Illustrator, CorelDraw\nVideo Editing — Premiere Pro, CapCut\nTools — Figma, Canva Pro\nKonsep — Tipografi, Teori Warna, Branding\nPhotography — Basic Lighting & Composition',
+        f_certs: 'Juara 2 Lomba Poster Nasional — Kemendikbud (2023)', f_langs: 'Bahasa Indonesia — Native\nBahasa Inggris — Intermediate' 
+    }
+};
+
+function toast(msg, type) { try { if (_printing) return; var ic = { ok: 'fa-circle-check', nf: 'fa-circle-info', wr: 'fa-triangle-exclamation', bd: 'fa-circle-xmark' }; var d = document.createElement('div'); d.className = 't-i ' + (type || 'nf'); d.innerHTML = '<i class="fa-solid ' + (ic[type] || ic.nf) + '"></i><span>' + msg + '</span>'; var box = document.getElementById('tBox'); if (box) box.appendChild(d); setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 3500); } catch (e) { } }
+function togSec(el) { try { el.classList.toggle('op'); var b = el.nextElementSibling; if (b) b.classList.toggle('op'); } catch (e) { } }
+var zm = 100;
+function doZoom(d) { try { if (d === 0) zm = 100; else zm = Math.max(40, Math.min(160, zm + d * 10)); var w = document.getElementById('sWrp'); if (w) w.style.transform = 'scale(' + (zm / 100) + ')'; var l = document.getElementById('zLv'); if (l) l.textContent = zm + '%'; } catch (e) { } }
+function setFont(cls, el) { try { curFont = cls; var s = document.getElementById('surat'); if (!s) return; s.className = s.className.replace(/cv-\w+/g, '').trim() + ' ' + cls; var r = el.parentElement; if (!r) return; var it = r.querySelectorAll('.tp-c'); for (var i = 0; i < it.length; i++) it[i].classList.remove('on'); el.classList.add('on'); lv(); } catch (e) { } }
+function setQuality(q, el) { try { curQuality = q; var r = el.parentElement; if (!r) return; var it = r.querySelectorAll('.tp-c'); for (var i = 0; i < it.length; i++) it[i].classList.remove('on'); el.classList.add('on'); } catch (e) { } }
+function toggleAutoSave() { try { autoSaveOn = !autoSaveOn; var t = document.getElementById('tgAutoSave'); if (t) { if (autoSaveOn) t.classList.add('on'); else t.classList.remove('on'); } var s = document.getElementById('stAuto'); if (s) s.style.display = autoSaveOn ? 'inline' : 'none'; if (autoSaveOn) startAutoSave(); else stopAutoSave(); toast(autoSaveOn ? 'Auto-save aktif' : 'Auto-save nonaktif', 'nf'); } catch (e) { } }
+function startAutoSave() { stopAutoSave(); autoSaveTimer = setInterval(function () { if (!autoSaveOn || _printing) return; try { saveDraftSilent(); } catch (e) { } }, 30000); }
+function stopAutoSave() { if (autoSaveTimer) { clearInterval(autoSaveTimer); autoSaveTimer = null; } }
+function toggleDark() { try { document.body.classList.toggle('dark-mode'); var d = document.body.classList.contains('dark-mode'); var b = document.getElementById('btnDark'); if (b) b.innerHTML = d ? '<i class="fa-solid fa-sun text-xs"></i>' : '<i class="fa-solid fa-moon text-xs"></i>'; toast(d ? 'Mode gelap' : 'Mode terang', 'nf'); } catch (e) { } }
+
+function validate() {
+    try {
+        var ok = true;
+        var w = [
+            { id: 'f_nama', err: 'e_nama' }, { id: 'f_title', err: 'e_title' },
+            { id: 'f_email', err: 'e_email' }, { id: 'f_phone' },
+            { id: 'f_linkedin', err: 'e_linkedin' },
+            { id: 'f_summary', err: 'e_summary' }, { id: 'f_edu', err: 'e_edu' },
+            { id: 'f_skills', err: 'e_skills' }
+        ];
+        for (var i = 0; i < w.length; i++) {
+            var r = w[i], el = document.getElementById(r.id);
+            if (!el) continue;
+            if (!el.value.trim()) { el.classList.add('err'); if (r.err) { var fe = document.getElementById(r.err); if (fe) fe.classList.add('sh'); } ok = false; }
+            else { el.classList.remove('err'); if (r.err) { var fe2 = document.getElementById(r.err); if (fe2) fe2.classList.remove('sh'); } }
         }
+        /* Validasi format email */
+        var em = document.getElementById('f_email');
+        if (em && em.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())) { em.classList.add('err'); var fe3 = document.getElementById('e_email'); if (fe3) fe3.classList.add('sh'); ok = false; }
+        /* Validasi format URL LinkedIn */
+        var li = document.getElementById('f_linkedin');
+        if (li && li.value.trim() && !/^https:\/\/(www\.)?linkedin\.com\/in\//.test(li.value.trim())) { li.classList.add('err'); var fe4 = document.getElementById('e_linkedin'); if (fe4) fe4.classList.add('sh'); ok = false; }
+        return ok;
+    } catch (e) { return false; }
+}
 
-        // Initial render
-        renderBooks();
+function setStatus(t, idle) { try { var d = document.getElementById('stDot'), x = document.getElementById('stText'); if (d) d.className = 'stat-dot' + (idle ? ' idle' : ''); if (x) x.textContent = t; } catch (e) { } }
+function updateClock() { try { var e = document.getElementById('stTime'); if (e) e.textContent = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }); } catch (e) { } }
+setInterval(updateClock, 1000); updateClock();
 
-        // Check session on load
-        async function checkSession() {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-                toggleAuthUI(true);
-                showDashboard(user);
-            } else {
-                toggleAuthUI(false);
-            }
-        }
+function checkPageOverflow() { try { var s = document.getElementById('surat'), g = s ? s.querySelector('.a4-page-guide') : null; if (!s || !g) return; var gh = g.offsetHeight; if (gh < 100) return; var ch = s.scrollHeight; var b = document.getElementById('overflowBadge'), info = document.getElementById('pageInfo'); if (ch > gh + 2) { if (b) b.classList.add('show'); var p = Math.ceil(ch / gh); if (info) { info.textContent = 'A4 \u2014 ' + p + ' Hal'; info.style.background = '#fef2f2'; info.style.color = '#dc2626'; } } else { if (b) b.classList.remove('show'); if (info) { info.textContent = 'A4 \u2014 1 Hal'; info.style.background = ''; info.style.color = ''; } } } catch (e) { } }
 
-        function toggleAuthUI(isLoggedIn) {
-            document.getElementById('loginBtn').style.display = isLoggedIn ? 'none' : 'block';
-            document.getElementById('registerBtn').style.display = isLoggedIn ? 'none' : 'block';
-            document.getElementById('dashboardBtn').style.display = isLoggedIn ? 'block' : 'none';
-            document.getElementById('logoutBtn').style.display = isLoggedIn ? 'block' : 'none';
-            document.getElementById('mobileLogin').style.display = isLoggedIn ? 'none' : 'block';
-            document.getElementById('mobileRegister').style.display = isLoggedIn ? 'none' : 'block';
-            document.getElementById('mobileDashboard').style.display = isLoggedIn ? 'block' : 'none';
-            document.getElementById('mobileLogout').style.display = isLoggedIn ? 'block' : 'none';
-        }
+function parseExp(n) { var raw = v('f_exp' + (n > 1 ? n : '')); if (!raw) return null; var lines = raw.trim().split('\n').filter(function (l) { return l.trim(); }); if (lines.length < 1) return null; return { title: lines[0] || '', sub: lines[1] || '', date: lines[2] || '', bullets: lines.slice(3) }; }
+function parseEdu(n) { var raw = v('f_edu' + (n > 1 ? n : '')); if (!raw) return null; var lines = raw.trim().split('\n').filter(function (l) { return l.trim(); }); if (lines.length < 1) return null; return { school: lines[0] || '', detail: lines[1] || '', date: lines[2] || '' }; }
 
-        // Login form
-        const loginForm = document.getElementById('loginForm');
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-            if (error) {
-                alert('Error: ' + error.message);
-            } else {
-                alert('Login berhasil!');
-                loginModal.style.display = 'none';
-                toggleAuthUI(true);
-                showDashboard(data.user);
-            }
-        });
+/* ==============================================
+   RENDER CV — LINKEDIN FORMAT ATS
+   ============================================== */
+function lv() { try { renderCV(); if (checkTimer) clearTimeout(checkTimer); checkTimer = setTimeout(checkPageOverflow, 80); } catch (e) { var sc = document.getElementById('sC'); if (sc) sc.innerHTML = '<div style="padding:40px;color:#dc2626;font-size:13px;"><strong>Error:</strong> ' + e.message + '</div>'; console.error(e); } }
 
-        // Register form
-        const registerForm = document.getElementById('registerForm');
-        registerForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('reg-email').value;
-            const password = document.getElementById('reg-password').value;
-            const name = document.getElementById('reg-name').value;
-            const { data, error } = await supabase.auth.signUp({ email, password });
-            if (error) {
-                alert('Error: ' + error.message);
-            } else {
-                await supabase.from('profiles').insert({ id: data.user.id, name });
-                alert('Pendaftaran berhasil! Silakan login.');
-                registerModal.style.display = 'none';
-            }
-        });
+function renderCV() {
+    var nama = kap(v('f_nama')) || 'Nama Lengkap';
+    var title = v('f_title') || 'Judul Profesional';
+    var email = v('f_email') || 'email@contoh.com';
+    var phone = v('f_phone') || '08xx-xxxx-xxxx';
+    var loc = v('f_loc');
+    var linkedin = v('f_linkedin');
+    var portfolio = v('f_portfolio');
+    var summary = v('f_summary') || '';
+    var fs = parseFloat(v('f_fs')) || 0.92;
+    var lh = parseFloat(v('f_lh')) || 1.55;
 
-        // Logout
-        document.getElementById('logoutBtn').addEventListener('click', async () => {
-            await supabase.auth.signOut();
-            toggleAuthUI(false);
-            alert('Logout berhasil!');
-        });
-        document.getElementById('mobileLogout').addEventListener('click', async () => {
-            await supabase.auth.signOut();
-            toggleAuthUI(false);
-            mobileMenu.classList.remove('active');
-            alert('Logout berhasil!');
-        });
+    /* Statistik */
+    var allText = [nama, title, summary, v('f_exp'), v('f_exp2'), v('f_exp3'), v('f_edu'), v('f_edu2'), v('f_skills'), v('f_certs'), v('f_langs')].join(' ');
 
-        // Show dashboard
-        async function showDashboard(user) {
-            const { data: profile } = await supabase.from('profiles').select('name').eq('id', user.id).single();
-            const userInfo = document.getElementById('userInfo');
-            userInfo.innerHTML = `
-                <p><strong>Email:</strong> ${user.email}</p>
-                <p><strong>Nama:</strong> ${profile ? profile.name : 'Tidak tersedia'}</p>
-                <p><strong>ID Pengguna:</strong> ${user.id}</p>
-                <p><strong>Tanggal Bergabung:</strong> ${new Date(user.created_at).toLocaleDateString()}</p>
-            `;
-            dashboardModal.style.display = 'block';
-        }
+    /* ===== BARIS KONTAK — FORMAT ATS STANDAR ===== */
+    var cp = [];
+    cp.push('<span>' + email + '</span>');
+    cp.push('<span>' + phone + '</span>');
+    if (loc) cp.push('<span>' + loc + '</span>');
+    if (linkedin) cp.push('<span>' + linkedin + '</span>');
+    if (portfolio) cp.push('<span>' + portfolio + '</span>');
 
-        // Modal handling
-        const loginModal = document.getElementById('loginModal');
-        const loginBtn = document.getElementById('loginBtn');
-        const mobileLogin = document.getElementById('mobileLogin');
-        const loginClose = loginModal.querySelector('.close');
+    var h = '';
+    h += '<div class="cv-name">' + nama + '</div>';
+    h += '<div class="cv-title">' + title + '</div>';
+    h += '<div class="cv-contact">' + cp.join('') + '</div>';
+    h += '<hr class="cv-sep">';
 
-        loginBtn.addEventListener('click', () => loginModal.style.display = 'block');
-        mobileLogin.addEventListener('click', () => {
-            loginModal.style.display = 'block';
-            mobileMenu.classList.remove('active');
-        });
-        loginClose.addEventListener('click', () => loginModal.style.display = 'none');
+    if (summary) { h += '<div class="cv-heading">Ringkasan</div><div class="cv-summary">' + summary + '</div>'; }
 
-        const registerModal = document.getElementById('registerModal');
-        const registerBtn = document.getElementById('registerBtn');
-        const mobileRegister = document.getElementById('mobileRegister');
-        const ctaRegister = document.getElementById('ctaRegister');
-        const registerClose = registerModal.querySelector('.close');
+    var hasExp = false; for (var ei = 1; ei <= 2; ei++) { if (parseExp(ei)) { hasExp = true; break; } }
+    if (hasExp) {
+        h += '<div class="cv-heading">Pengalaman</div>';
+        for (var ej = 1; ej <= 2; ej++) { var ex = parseExp(ej); if (ex) { h += '<div class="cv-exp-item"><div class="cv-exp-header"><span class="cv-exp-role">' + ex.title + '</span><span class="cv-exp-date">' + ex.date + '</span></div><div class="cv-exp-company">' + ex.sub + '</div>'; for (var bi = 0; bi < ex.bullets.length; bi++) h += '<div class="cv-bullet">' + ex.bullets[bi].trim() + '</div>'; h += '</div>'; } }
+    }
 
-        registerBtn.addEventListener('click', () => registerModal.style.display = 'block');
-        mobileRegister.addEventListener('click', () => {
-            registerModal.style.display = 'block';
-            mobileMenu.classList.remove('active');
-        });
-        ctaRegister.addEventListener('click', () => registerModal.style.display = 'block');
-        registerClose.addEventListener('click', () => registerModal.style.display = 'none');
+    var hasEdu = false; for (var edi = 1; edi <= 2; edi++) { if (parseEdu(edi)) { hasEdu = true; break; } }
+    if (hasEdu) {
+        h += '<div class="cv-heading">Pendidikan</div>';
+        for (var edj = 1; edj <= 2; edj++) { var ed = parseEdu(edj); if (ed) { h += '<div class="cv-edu-item"><div class="cv-edu-header"><span class="cv-edu-school">' + ed.school + '</span><span class="cv-edu-date">' + ed.date + '</span></div><div class="cv-edu-detail">' + ed.detail + '</div></div>'; } }
+    }
 
-        const dashboardModal = document.getElementById('dashboardModal');
-        const dashboardBtn = document.getElementById('dashboardBtn');
-        const mobileDashboard = document.getElementById('mobileDashboard');
-        const dashboardClose = dashboardModal.querySelector('.close');
-        const closeDashboardBtn = document.getElementById('closeDashboard');
+    var skills = v('f_skills');
+    if (skills) {
+        h += '<div class="cv-heading">Keahlian</div>';
+        var sL = skills.split('\n').filter(function (l) { return l.trim(); });
+        for (var si = 0; si < sL.length; si++) { var pts = sL[si].split('\u2014'); if (pts.length >= 2) h += '<div class="cv-skill-item"><span class="cv-skill-name">' + pts[0].trim() + '</span><span class="cv-skill-desc">' + pts.slice(1).join('\u2014').trim() + '</span></div>'; else h += '<div class="cv-bullet">' + sL[si].trim() + '</div>'; }
+    }
 
-        dashboardBtn.addEventListener('click', async () => {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) showDashboard(user);
-        });
-        mobileDashboard.addEventListener('click', async () => {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-                showDashboard(user);
-                mobileMenu.classList.remove('active');
-            }
-        });
-        dashboardClose.addEventListener('click', () => dashboardModal.style.display = 'none');
-        closeDashboardBtn.addEventListener('click', () => dashboardModal.style.display = 'none');
+    var certs = v('f_certs');
+    if (certs) { h += '<div class="cv-heading">Sertifikasi & Penghargaan</div>'; var cL = certs.split('\n').filter(function (l) { return l.trim(); }); for (var ci = 0; ci < cL.length; ci++) h += '<div class="cv-cert-item">' + cL[ci].trim() + '</div>'; }
 
-        window.addEventListener('click', (event) => {
-            if (event.target === loginModal) loginModal.style.display = 'none';
-            if (event.target === registerModal) registerModal.style.display = 'none';
-            if (event.target === dashboardModal) dashboardModal.style.display = 'none';
-        });
+    var langs = v('f_langs');
+    if (langs) { h += '<div class="cv-heading">Bahasa</div>'; var lL = langs.split('\n').filter(function (l) { return l.trim(); }); for (var li = 0; li < lL.length; li++) { var lp = lL[li].split('\u2014'); if (lp.length >= 2) h += '<div class="cv-lang-item"><span class="cv-lang-name">' + lp[0].trim() + '</span><span class="cv-lang-level">' + lp.slice(1).join('\u2014').trim() + '</span></div>'; else h += '<div class="cv-cert-item">' + lL[li].trim() + '</div>'; } }
 
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
+    var sc = document.getElementById('sC'); if (sc) sc.innerHTML = h;
+    var suratEl = document.getElementById('surat'); if (suratEl) { suratEl.style.fontSize = fs + 'em'; suratEl.style.lineHeight = lh; }
+    setStatus('Diperbarui', false);
+    if (lvTimer) clearTimeout(lvTimer);
+    lvTimer = setTimeout(function () { setStatus('Siap', true); }, 1500);
+}
 
-        // Book card hover
-        function addBookHoverEffects() {
-            const bookCards = document.querySelectorAll('.book-card');
-            bookCards.forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    card.style.transform = 'translateY(-10px) rotateX(5deg)';
-                    card.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.15)';
+function hidePreviewElements() { try { var els = document.querySelectorAll('.preview-only'); for (var i = 0; i < els.length; i++) els[i].style.display = 'none'; } catch (e) { } }
+function showPreviewElements() { try { var els = document.querySelectorAll('.preview-only'); for (var i = 0; i < els.length; i++) els[i].style.display = ''; checkPageOverflow(); } catch (e) { } }
+function showPrintInd(t, s) { try { var e = document.getElementById('printInd'); if (!e) return; e.querySelector('.pi-text').textContent = t; e.querySelector('.pi-sub').textContent = s; e.classList.add('show'); } catch (e) { } }
+function hidePrintInd() { try { var e = document.getElementById('printInd'); if (e) e.classList.remove('show'); } catch (e) { } }
+
+function doPrint() { try { if (!validate()) { toast('Lengkapi kolom wajib', 'wr'); return; } _printing = true; lv(); showPrintInd('Menyiapkan cetak...', ''); setTimeout(function () { hidePrintInd(); window.print(); setTimeout(function () { _printing = false; }, 500); }, 400); } catch (e) { _printing = false; } }
+function expPDF() { try { if (!validate()) { toast('Lengkapi kolom wajib', 'wr'); return; } _printing = true; lv(); showPrintInd('Membuka dialog PDF...', 'Margins: None'); setTimeout(function () { hidePrintInd(); window.print(); setTimeout(function () { _printing = false; }, 500); }, 600); } catch (e) { _printing = false; } }
+
+function expImg() { try { if (!validate()) { toast('Lengkapi kolom wajib', 'wr'); return; } toast('Memproses gambar...', 'nf'); setStatus('Membuat PNG...', false); var wrp = document.getElementById('sWrp'), origT = wrp ? wrp.style.transform : ''; if (wrp) wrp.style.transform = 'scale(1)'; hidePreviewElements(); setTimeout(function () { html2canvas(document.getElementById('surat'), { scale: 3, backgroundColor: '#ffffff', useCORS: true, logging: false }).then(function (canvas) { if (wrp) wrp.style.transform = origT; showPreviewElements(); var a = document.createElement('a'); a.download = 'CV_' + (v('f_nama') || 'draft').replace(/[^a-zA-Z0-9]/g, '_') + '.png'; a.href = canvas.toDataURL('image/png', 1.0); a.click(); toast('PNG berhasil diunduh', 'ok'); setStatus('Siap', true); }).catch(function (err) { if (wrp) wrp.style.transform = origT; showPreviewElements(); toast('Gagal membuat gambar', 'bd'); setStatus('Gagal', true); }); }, 200); } catch (e) { _printing = false; showPreviewElements(); } }
+
+function copyText() { try { var s = document.getElementById('sC'); if (!s) return; var t = s.innerText || s.textContent; if (!t.trim()) { toast('Tidak ada teks', 'wr'); return; } if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(function () { toast('Teks disalin', 'ok'); }).catch(function () { fCopy(t); }); } else fCopy(t); } catch (e) { } }
+function fCopy(t) { try { var ta = document.createElement('textarea'); ta.value = t; ta.style.cssText = 'position:fixed;left:-9999px;'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); if (ta.parentNode) document.body.removeChild(ta); toast('Teks disalin', 'ok'); } catch (e) { } }
+
+var SK = 'cvats_freshgrad_v1';
+var FIDS = ['f_nama', 'f_title', 'f_email', 'f_phone', 'f_loc', 'f_linkedin', 'f_portfolio', 'f_summary', 'f_exp', 'f_exp2', 'f_exp3', 'f_edu', 'f_edu2', 'f_skills', 'f_certs', 'f_langs', 'f_fs', 'f_lh'];
+
+function saveDraft() { try { var d = {}; for (var i = 0; i < FIDS.length; i++) { var e = document.getElementById(FIDS[i]); if (e) d[FIDS[i]] = e.value; } d._t = new Date().toISOString(); d._font = curFont; d._dark = document.body.classList.contains('dark-mode'); localStorage.setItem(SK, JSON.stringify(d)); toast('Draft disimpan', 'ok'); } catch (e) { toast('Gagal menyimpan', 'bd'); } }
+function saveDraftSilent() { try { var d = {}; for (var i = 0; i < FIDS.length; i++) { var e = document.getElementById(FIDS[i]); if (e) d[FIDS[i]] = e.value; } d._t = new Date().toISOString(); d._font = curFont; d._dark = document.body.classList.contains('dark-mode'); localStorage.setItem(SK, JSON.stringify(d)); setStatus('Auto-saved', false); setTimeout(function () { setStatus('Siap', true); }, 1500); } catch (e) { } }
+
+function loadDraft() { try { var r = localStorage.getItem(SK); if (!r) { toast('Tidak ada draft', 'wr'); return; } var d = JSON.parse(r); for (var i = 0; i < FIDS.length; i++) { if (d[FIDS[i]] !== undefined) { var e = document.getElementById(FIDS[i]); if (e) e.value = d[FIDS[i]]; } } if (d._font) { curFont = d._font; var s = document.getElementById('surat'); if (s) s.className = s.className.replace(/cv-\w+/g, '').trim() + ' ' + curFont; var fb = document.querySelectorAll('#fontRow .tp-c'); for (var fi = 0; fi < fb.length; fi++) { if (fb[fi].getAttribute('data-font') === curFont) { for (var r2 = 0; r2 < fb.length; r2++) fb[r2].classList.remove('on'); fb[fi].classList.add('on'); break; } } } if (d._dark) { document.body.classList.add('dark-mode'); var b = document.getElementById('btnDark'); if (b) b.innerHTML = '<i class="fa-solid fa-sun text-xs"></i>'; } lv(); toast('Draft dimuat', 'ok'); } catch (e) { toast('Gagal memuat draft', 'bd'); } }
+
+function confirmReset() { try { var ov = document.createElement('div'); ov.style.cssText = 'position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:9998;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(3px);animation:tIn .2s ease-out;'; var bx = document.createElement('div'); bx.style.cssText = 'background:#fff;border-radius:18px;padding:24px 26px;max-width:340px;width:92%;box-shadow:0 20px 50px rgba(0,0,0,.2);text-align:center;'; bx.innerHTML = '<div style="width:44px;height:44px;border-radius:12px;background:#fef2f2;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;"><i class="fa-solid fa-rotate-left" style="color:#dc2626;font-size:18px;"></i></div><h3 style="font-size:14px;font-weight:700;color:#1e293b;margin:0 0 4px;">Reset Semua Data?</h3><p style="font-size:11px;color:#64748b;margin:0 0 16px;">Data yang diisi akan dihapus.</p><div style="display:flex;gap:8px;"><button id="_rc" style="flex:1;padding:8px;border-radius:10px;border:1.5px solid #e2e8f0;background:#fff;font-size:11px;font-weight:600;color:#64748b;cursor:pointer;font-family:inherit;">Batal</button><button id="_ro" style="flex:1;padding:8px;border-radius:10px;border:none;background:#dc2626;color:#fff;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;">Ya, Reset</button></div>'; ov.appendChild(bx); document.body.appendChild(ov); ov.addEventListener('click', function (e) { if (e.target === ov && ov.parentNode) ov.parentNode.removeChild(ov); }); bx.querySelector('#_rc').onclick = function () { if (ov.parentNode) ov.parentNode.removeChild(ov); }; bx.querySelector('#_ro').onclick = function () { if (ov.parentNode) ov.parentNode.removeChild(ov); for (var i = 0; i < FIDS.length; i++) { var el = document.getElementById(FIDS[i]); if (el) el.value = ''; } lv(); toast('Dikosongkan', 'nf'); }; } catch (e) { } }
+
+/* ==============================================
+   INISIALISASI & EVENT BINDING
+   ============================================== */
+document.addEventListener('DOMContentLoaded', function () {
+    try {
+        document.getElementById('btnDark').addEventListener('click', toggleDark);
+        document.getElementById('btnLoad').addEventListener('click', loadDraft);
+        document.getElementById('btnSave').addEventListener('click', saveDraft);
+        document.getElementById('btnCopy').addEventListener('click', copyText);
+        document.getElementById('btnPng').addEventListener('click', expImg);
+        document.getElementById('btnPdf').addEventListener('click', expPDF);
+        document.getElementById('btnPrint').addEventListener('click', doPrint);
+        document.getElementById('btnReset').addEventListener('click', confirmReset);
+        document.getElementById('btnZoomIn').addEventListener('click', function () { doZoom(1); });
+        document.getElementById('btnZoomOut').addEventListener('click', function () { doZoom(-1); });
+        document.getElementById('btnZoomReset').addEventListener('click', function () { doZoom(0); });
+
+        /* Template cards */
+        var tplItems = document.querySelectorAll('#tplRow .tp-c');
+        for (var ti = 0; ti < tplItems.length; ti++) { (function (el) { el.addEventListener('click', function () { var k = el.getAttribute('data-tpl'); var row = el.parentElement; if (!row) return; var items = row.querySelectorAll('.tp-c'); for (var i = 0; i < items.length; i++) items[i].classList.remove('on'); el.classList.add('on'); var t = TPL[k]; if (!t) return; if (t.f_summary !== undefined) { var e1 = document.getElementById('f_summary'); if (e1) e1.value = t.f_summary; } if (t.f_exp !== undefined) { var e2 = document.getElementById('f_exp'); if (e2) e2.value = t.f_exp; } if (t.f_exp2 !== undefined) { var e22 = document.getElementById('f_exp2'); if (e22) e22.value = t.f_exp2; } if (t.f_skills !== undefined) { var e3 = document.getElementById('f_skills'); if (e3) e3.value = t.f_skills; } if (t.f_certs !== undefined) { var e4 = document.getElementById('f_certs'); if (e4) e4.value = t.f_certs; } if (t.f_langs !== undefined) { var e5 = document.getElementById('f_langs'); if (e5) e5.value = t.f_langs; } lv(); toast('Template diterapkan', 'ok'); }); })(tplItems[ti]); }
+
+        /* Font cards */
+        var fontItems = document.querySelectorAll('#fontRow .tp-c');
+        for (var fi = 0; fi < fontItems.length; fi++) { (function (el) { el.addEventListener('click', function () { setFont(el.getAttribute('data-font'), el); }); })(fontItems[fi]); }
+
+        /* Quality cards */
+        var qualItems = document.querySelectorAll('#qualRow .tp-c');
+        for (var qi = 0; qi < qualItems.length; qi++) { (function (el) { el.addEventListener('click', function () { setQuality(el.getAttribute('data-qual'), el); }); })(qualItems[qi]); }
+
+        /* Section toggles */
+        var secHds = document.querySelectorAll('[data-sec]');
+        for (var si = 0; si < secHds.length; si++) { secHds[si].addEventListener('click', function () { togSec(this); }); }
+
+        /* Auto-save toggle */
+        document.getElementById('tgAutoWrap').addEventListener('click', toggleAutoSave);
+
+        /* Form inputs — render on change + hapus error saat mengetik */
+        var allInputs = document.querySelectorAll('.cv-input');
+        for (var ii = 0; ii < allInputs.length; ii++) {
+            (function (el) {
+                el.addEventListener('input', function () {
+                    try { el.classList.remove('err'); var fe = el.parentElement.querySelector('.fe'); if (fe) fe.classList.remove('sh'); } catch (e) { }
+                    lv();
                 });
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'translateY(0) rotateX(0)';
-                    card.style.boxShadow = 'none';
-                });
-            });
+            })(allInputs[ii]);
         }
 
-        // Category filter
-        const categoryChips = document.querySelectorAll('.category-chip');
-        let activeCategory = null;
-
-        categoryChips.forEach(chip => {
-            chip.addEventListener('click', () => {
-                const category = chip.dataset.category;
-                if (activeCategory === category) {
-                    activeCategory = null;
-                    chip.classList.remove('active');
-                    renderBooks();
-                } else {
-                    activeCategory = category;
-                    categoryChips.forEach(c => c.classList.remove('active'));
-                    chip.classList.add('active');
-                    renderBooks(category);
-                }
-                addBookHoverEffects();
-            });
+        /* Keyboard shortcuts */
+        document.addEventListener('keydown', function (e) {
+            try {
+                var tag = e.target.tagName, isI = tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA';
+                if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); saveDraft(); }
+                if ((e.ctrlKey || e.metaKey) && e.key === 'm') { e.preventDefault(); loadDraft(); }
+                if ((e.ctrlKey || e.metaKey) && e.key === 'p') { e.preventDefault(); expPDF(); }
+                if (e.key === 'd' && !isI && !e.ctrlKey && !e.metaKey && !e.altKey) toggleDark();
+                if (e.key === 'Escape') { var m = document.querySelector('div[style*="z-index:9998"]'); if (m && m.parentNode) m.parentNode.removeChild(m); hidePrintInd(); }
+            } catch (e) { }
         });
 
-        // Category hover
-        categoryChips.forEach(chip => {
-            chip.addEventListener('mouseenter', () => {
-                chip.style.transform = 'scale(1.05)';
-                chip.style.background = 'rgba(255, 255, 255, 0.2)';
-            });
-            chip.addEventListener('mouseleave', () => {
-                if (!chip.classList.contains('active')) {
-                    chip.style.transform = 'scale(1)';
-                    chip.style.background = 'rgba(255, 255, 255, 0.1)';
-                }
-            });
-        });
+        /* Render pertama */
+        lv();
 
-        // Mobile menu
-        const menuToggle = document.getElementById('menuToggle');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const closeMenu = document.getElementById('closeMenu');
+        /* Deteksi draft */
+        try { if (localStorage.getItem(SK)) setTimeout(function () { toast('Draft ditemukan. Klik Muat.', 'nf'); }, 1200); } catch (e) { }
 
-        menuToggle.addEventListener('click', () => mobileMenu.classList.add('active'));
-        closeMenu.addEventListener('click', () => mobileMenu.classList.remove('active'));
+        /* Auto-save */
+        if (autoSaveOn) { var st = document.getElementById('stAuto'); if (st) st.style.display = 'inline'; startAutoSave(); }
 
-        // Demo buttons
-        const demoBtn = document.getElementById('demoBtn');
-        const ctaDemo = document.getElementById('ctaDemo');
-        demoBtn.addEventListener('click', () => alert('Demo sedang dimuat... (Simulasi video demo e-book coding)'));
-        ctaDemo.addEventListener('click', () => alert('Demo sedang dimuat... (Simulasi video demo e-book coding)'));
+    } catch (e) { console.error('Init error:', e); try { renderCV(); } catch (e2) { } }
+});
 
-        // Image error handling
-        document.querySelectorAll('img').forEach(img => {
-            img.onerror = function() {
-                this.style.display = 'none';
-                const parent = this.parentElement;
-                parent.style.background = 'rgba(255, 255, 255, 0.1)';
-                parent.style.minHeight = '200px';
-                parent.style.display = 'flex';
-                parent.style.alignItems = 'center';
-                parent.style.justifyContent = 'center';
-                parent.innerHTML = '<i class="fas fa-image text-white text-3xl"></i>';
-            };
-        });
-
-        // Enhanced Anti-inspect using disable-devtool library
-        DisableDevtool({
-            md5: '', // Optional, for bypass if needed
-            url: 'about:blank', // Redirect to blank if devtool detected
-            ondevtoolopen: function() {
-                window.location.href = 'about:blank'; // Or blur the page
-            },
-            interval: 100, // Check every 100ms
-            disableMenu: true,
-            stopIntervalTime: 5000, // Stop checking after 5s on mobile
-            clearIntervalWhenDevOpenTrigger: true,
-            detectors: [0, 1, 2, 3, 4, 5, 6, 7, 8], // All detectors
-            clearLog: true,
-            disableSelect: true,
-            disableCopy: true,
-            disableCut: true,
-            disablePaste: true
-        });
-
-        // Additional manual anti-inspect
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('keydown', e => {
-            // F12
-            if (e.keyCode === 123) e.preventDefault();
-            // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U, Ctrl+S
-            if (e.ctrlKey && (e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67) || e.keyCode === 85 || e.keyCode === 83)) {
-                e.preventDefault();
-            }
-        });
-        setInterval(() => {
-            const threshold = 160;
-            if ((window.outerWidth - window.innerWidth > threshold) || (window.outerHeight - window.innerHeight > threshold)) {
-                document.body.style.filter = 'blur(10px)';
-                alert('Developer tools terdeteksi. Halaman akan diburamkan untuk keamanan.');
-            }
-        }, 500);
-        document.addEventListener('wheel', e => {
-            if (e.ctrlKey) e.preventDefault();
-        }, { passive: false });
-
-        // Initial session check and book hover effects
-        checkSession();
-        addBookHoverEffects();
-    </script>
+window.addEventListener('beforeunload', function () { stopAutoSave(); });
+</script>
 </body>
 </html>
