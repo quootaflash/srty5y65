@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Writehub - Fresh Graduate Edition</title>
+    <title>FreshGrad Hub - S1 Optimized</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -76,25 +76,58 @@
         }
 
         /* ===== STYLING CV ATS ===== */
+        
+        /* Header */
+        .cv-header { margin-bottom: 10px; }
         .cv-name { font-size: 22pt; font-weight: 700; color: #111; margin-bottom: 2px; letter-spacing: -0.3px; line-height: 1.15; }
         .cv-title { font-size: 11pt; color: #555; font-weight: 400; margin-bottom: 10px; }
         .cv-contact { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 8.5pt; color: #444; margin-bottom: 14px; line-height: 1.6; }
         .cv-contact span { white-space: nowrap; }
+        
         .cv-sep { border: none; border-top: 1.5px solid #222; margin: 12px 0 10px; }
         .cv-heading { font-size: 11pt; font-weight: 700; color: #111; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; padding-bottom: 3px; border-bottom: 1.5px solid #222; }
         .cv-summary { font-size: 9.5pt; color: #333; line-height: 1.6; margin-bottom: 4px; text-align: justify; }
+        
+        /* Experience */
         .cv-exp-item { margin-bottom: 10px; }
-        .cv-exp-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 2px; }
+        .cv-exp-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: baseline; 
+            flex-wrap: wrap; 
+            gap: 2px; 
+        }
         .cv-exp-role { font-size: 10pt; font-weight: 600; color: #111; }
-        .cv-exp-date { font-size: 8.5pt; color: #666; font-weight: 400; }
+        .cv-exp-date { font-size: 8.5pt; color: #666; font-weight: 400; white-space: nowrap; }
         .cv-exp-company { font-size: 9pt; color: #444; font-style: italic; margin-bottom: 3px; }
         .cv-bullet { font-size: 9.5pt; color: #333; line-height: 1.55; padding-left: 14px; position: relative; margin-bottom: 2px; }
         .cv-bullet::before { content: '\2022'; position: absolute; left: 0; color: #333; }
-        .cv-edu-item { margin-bottom: 8px; }
-        .cv-edu-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 2px; }
-        .cv-edu-school { font-size: 10pt; font-weight: 600; color: #111; }
-        .cv-edu-date { font-size: 8.5pt; color: #666; }
-        .cv-edu-detail { font-size: 9pt; color: #444; }
+
+        /* Education - Fresh Graduate Optimized */
+        .cv-edu-item { margin-bottom: 10px; }
+        .cv-edu-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: baseline; 
+            flex-wrap: wrap; 
+            gap: 2px; 
+        }
+        .cv-edu-school { font-size: 10pt; font-weight: 700; color: #111; }
+        .cv-edu-date { font-size: 8.5pt; color: #666; white-space: nowrap; }
+        
+        /* Detail Education: Major (Left) and GPA (Right) */
+        .cv-edu-detail { 
+            font-size: 9pt; 
+            color: #444; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 2px; 
+        }
+        .cv-edu-major { font-style: italic; font-weight: 500; color: #333; }
+        .cv-edu-gpa { font-weight: 700; color: #2563eb; } /* Highlight GPA for Fresh Grads */
+        .cv-edu-thesis { font-size: 8.5pt; color: #555; margin-top: 1px; font-style: italic; }
+
         .cv-skill-item { display: flex; align-items: baseline; margin-bottom: 3px; }
         .cv-skill-name { font-size: 9.5pt; font-weight: 600; color: #111; min-width: 140px; flex-shrink: 0; }
         .cv-skill-desc { font-size: 9pt; color: #444; }
@@ -222,8 +255,8 @@
         <div class="flex items-center gap-2.5 min-w-0">
             <div class="w-9 h-9 rounded-lg bg-blue-500/15 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-graduation-cap text-blue-400 text-sm"></i></div>
             <div class="min-w-0">
-                <h1 class="text-[15px] font-bold tracking-tight truncate">FreshGrad Hub</h1>
-                <p class="text-[8px] text-slate-500 -mt-0.5 tracking-widest uppercase">Optimized for Entry Level</p>
+                <h1 class="text-[15px] font-bold tracking-tight truncate">FreshGrad Hub v2.0</h1>
+                <p class="text-[8px] text-slate-500 -mt-0.5 tracking-widest uppercase">Fresh Graduate • S1 Optimized</p>
             </div>
         </div>
         <div class="flex items-center gap-1.5 flex-shrink-0">
@@ -247,7 +280,7 @@
             <div class="bg-[var(--card)] rounded-2xl shadow-lg border border-[var(--border)] overflow-hidden flex flex-col" style="max-height:calc(100vh - 100px);">
                 <div class="px-5 pt-4 pb-3 border-b border-[var(--border)] flex-shrink-0">
                     <div class="flex items-center justify-between">
-                        <div><h2 class="text-[16px] font-bold text-[var(--text)]">Isi Data Fresh Graduate</h2><p class="text-[10px] text-[var(--muted)] mt-0.5">Highlight potensimu walau pengalaman kerja terbatas.</p></div>
+                        <div><h2 class="text-[16px] font-bold text-[var(--text)]">Isi Data Fresh Graduate</h2><p class="text-[10px] text-[var(--muted)] mt-0.5">Formulir pendidikan S1 yang lengkap & rapi.</p></div>
                         <div class="flex items-center gap-1"><span class="kb">Ctrl+S</span></div>
                     </div>
                 </div>
@@ -267,7 +300,7 @@
                         <div class="sh-hd op" data-sec><span class="text-[12px] font-bold text-[var(--text)]"><i class="fa-solid fa-user mr-1.5 text-blue-600 text-[10px]"></i>Data Diri</span><i class="fa-solid fa-chevron-down cv2"></i></div>
                         <div class="sh-bd op"><div class="pt-3 space-y-2.5">
                             <div><label class="fl" for="f_nama">Nama Lengkap <span class="req">*</span></label><input id="f_nama" class="fi cv-input" placeholder="Sesuai Ijazah" value="Budi Santoso"><div class="fe" id="e_nama">Wajib diisi</div></div>
-                            <div><label class="fl" for="f_title">Judul Target Pekerjaan <span class="req">*</span></label><input id="f_title" class="fi cv-input" placeholder="Contoh: Fresh Graduate Administrative Staff" value="Fresh Graduate Administrative Staff"><div class="fe" id="e_title">Wajib diisi</div></div>
+                            <div><label class="fl" for="f_title">Judul Target Pekerjaan <span class="req">*</span></label><input id="f_title" class="fi cv-input" placeholder="Contoh: Fresh Graduate Admin" value="Fresh Graduate Administrative Staff"><div class="fe" id="e_title">Wajib diisi</div></div>
                             <div class="grid grid-cols-2 gap-2">
                                 <div><label class="fl" for="f_email">Email <span class="req">*</span></label><input id="f_email" class="fi cv-input" type="email" placeholder="nama@email.com" value="budi.santoso@email.com"><div class="fe" id="e_email">Format tidak valid</div></div>
                                 <div><label class="fl" for="f_phone">No. HP/WA <span class="req">*</span></label><input id="f_phone" class="fi cv-input" placeholder="08xx-xxxx-xxxx" value="0812-3456-7890"></div>
@@ -302,8 +335,49 @@
                     <div class="mb-1">
                         <div class="sh-hd op" data-sec><span class="text-[12px] font-bold text-[var(--text)]"><i class="fa-solid fa-graduation-cap mr-1.5 text-blue-600 text-[10px]"></i>Pendidikan (Penting!)</span><i class="fa-solid fa-chevron-down cv2"></i></div>
                         <div class="sh-bd op"><div class="pt-3 space-y-2.5">
-                            <div><label class="fl" for="f_edu">Pendidikan Terakhir <span class="req">*</span></label><textarea id="f_edu" class="fi cv-input" rows="3" placeholder="Nama Universitas, Kota&#10;Jurusan (S1/D3) — Gelar&#10;Tahun Lulus">Universitas Indonesia, Depok&#10;Manajemen — Sarjana Ekonomi (S.E.)&#10;Lulus: 2024</textarea><div class="fe" id="e_edu">Wajib diisi</div></div>
-                            <div><label class="fl" for="f_edu2">Pendidikan Sebelumnya</label><textarea id="f_edu2" class="fi cv-input" rows="3" placeholder="SMA/SMK">SMA Negeri 1 Jakarta&#10;IPA — IPS&#10;2018 – 2021</textarea></div>
+                            <div class="p-2 bg-blue-50 rounded-lg border border-blue-100 mb-2">
+                                <p class="text-[9px] text-blue-800 font-semibold mb-1"><i class="fa-solid fa-graduation-cap mr-1"></i>Mode Pendidikan S1</p>
+                                <p class="text-[8.5px] text-blue-700 leading-tight">IPK dan Judul Skripsi akan otomatis ditampilkan di CV untuk memperkuat profil Anda.</p>
+                            </div>
+                            
+                            <!-- Input Pendidikan 1 (S1) - Flexible -->
+                            <div class="bg-white border border-slate-200 p-3 rounded-lg space-y-3 shadow-sm">
+                                <label class="fl text-blue-700" for="f_edu1_school">Pendidikan Terakhir <span class="req">*</span></label>
+                                <input id="f_edu1_school" class="fi cv-input" placeholder="Nama Universitas, Kota" value="Universitas Indonesia, Depok">
+                                
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label class="fl text-[8.5px] text-slate-500 uppercase">Jurusan</label>
+                                        <input id="f_edu1_major" class="fi cv-input" placeholder="Contoh: Manajemen" value="S1 Manajemen">
+                                    </div>
+                                    <div>
+                                        <label class="fl text-[8.5px] text-slate-500 uppercase">Tahun Lulus</label>
+                                        <input id="f_edu1_year" class="fi cv-input" placeholder="2020 – 2024" value="2020 – 2024">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-3 gap-2">
+                                    <div>
+                                        <label class="fl text-[8.5px] text-slate-500 uppercase">IPK (GPA)</label>
+                                        <input id="f_edu1_gpa" class="fi cv-input" placeholder="0.00" value="3.75">
+                                    </div>
+                                    <div class="col-span-2">
+                                        <label class="fl text-[8.5px] text-slate-500 uppercase">Judul Skripsi / Tugas Akhir</label>
+                                        <input id="f_edu1_thesis" class="fi cv-input" placeholder="Judul Skripsi Anda..." value="Analisis Pengaruh Komunikasi Internal...">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Input Pendidikan 2 (SMA) - Simple -->
+                            <div>
+                                <label class="fl" for="f_edu2_school">Pendidikan Sebelumnya</label>
+                                <div class="grid grid-cols-2 gap-2 mb-2">
+                                    <input id="f_edu2_school" class="fi cv-input" placeholder="Nama Sekolah, Kota" value="SMA Negeri 1 Jakarta">
+                                    <input id="f_edu2_year" class="fi cv-input" placeholder="2017 – 2020" value="2017 – 2020">
+                                </div>
+                                <input id="f_edu2_major" class="fi cv-input" placeholder="Jurusan (IPA/IPS/Bahasa)" value="IPA">
+                            </div>
+                            <div class="fe" id="e_edu1">Wajib diisi (Minimal pendidikan terakhir)</div>
                         </div></div>
                     </div>
 
@@ -312,6 +386,20 @@
                         <div class="sh-bd op"><div class="pt-3 space-y-2.5">
                             <p class="text-[9.5px] text-[var(--muted)] leading-relaxed">Sertakan soft skill (komunikasi, kerja tim) dan hard skill (software).</p>
                             <div><label class="fl" for="f_skills">Daftar Keahlian <span class="req">*</span></label><textarea id="f_skills" class="fi cv-input" rows="5" placeholder="Skill — Level/Ket">Microsoft Office — Mahir (Excel VLOOKUP, Pivot Table)&#10;Administrasi — Pengarsipan, manajemen data&#10;Bahasa Inggris — TOEFL 550&#10;Komunikasi — Public Speaking, Negotiation&#10;Canva — Desain poster dan media sosial</textarea><div class="fe" id="e_skills">Wajib diisi</div></div>
+                        </div></div>
+                    </div>
+
+                    <div class="mb-1">
+                        <div class="sh-hd op" data-sec><span class="text-[12px] font-bold text-[var(--text)]"><i class="fa-solid fa-certificate mr-1.5 text-blue-600 text-[10px]"></i>Sertifikasi</span><i class="fa-solid fa-chevron-down cv2"></i></div>
+                        <div class="sh-bd op"><div class="pt-3 space-y-2.5">
+                            <div><label class="fl" for="f_certs">Daftar Sertifikasi</label><textarea id="f_certs" class="fi cv-input" rows="3" placeholder="Nama Sertifikasi — Penerbit (Tahun)">Sertifikat Kompetensi MS Office — BNSP (2023)</textarea></div>
+                        </div></div>
+                    </div>
+
+                    <div class="mb-1">
+                        <div class="sh-hd op" data-sec><span class="text-[12px] font-bold text-[var(--text)]"><i class="fa-solid fa-language mr-1.5 text-blue-600 text-[10px]"></i>Bahasa</span><i class="fa-solid fa-chevron-down cv2"></i></div>
+                        <div class="sh-bd op"><div class="pt-3 space-y-2.5">
+                            <div><label class="fl" for="f_langs">Daftar Bahasa</label><textarea id="f_langs" class="fi cv-input" rows="2" placeholder="Bahasa Indonesia — Native">Bahasa Indonesia — Native&#10;Bahasa Inggris — Intermediate (Conversational)</textarea></div>
                         </div></div>
                     </div>
 
@@ -375,7 +463,7 @@
                     <div id="sWrp" style="transform-origin:top center;transition:transform .2s;">
                         <div id="surat" class="a4-cv cv-inter">
                             <div class="a4-page-guide preview-only"></div>
-                            <div id="sC" style="position:relative;z-index:2;"></div>
+                            <div class="cv-header" style="position:relative;z-index:2;" id="sC"></div>
                             <div class="overflow-badge preview-only" id="overflowBadge"><i class="fa-solid fa-layer-group" style="margin-right:4px"></i>Konten melebihi 1 halaman A4</div>
                         </div>
                     </div>
@@ -402,7 +490,7 @@ var TPL = {
     tech: { 
         f_summary: 'Fresh Graduate Teknik Informatika dengan pemahaman dasar dalam pengembangan web dan manajemen database. Mengerjakan proyek Tugas Akhir tentang sistem informasi berbasis web. Antusias mempelajari teknologi baru (JavaScript, React) dan siap bekerja dalam tim software development.',
         f_exp: 'Magang Web Developer\nPT StartUp Lokal, Jakarta\nAgu 2023 – Okt 2023\nMembantu pengembangan frontend menggunakan HTML & CSS\nMembetulkan bug minor pada fitur user profile\nBelajar implementasi REST API menggunakan Postman',
-        f_exp2: 'Asisten Laboratorium Komputer\nUniversitas Teknologi, Bandung\nJan 2023 – Jun 2023\nMembantu dosen dan mahasiswa dalam praktikum Algoritma\nMaintenance 30 unit PC lab',
+        f_exp2: 'Asisten Lab Komputer\nUniversitas Teknologi, Bandung\nJan 2023 – Jun 2023\nMembantu dosen dan mahasiswa dalam praktikum Algoritma\nMaintenance 30 unit PC lab',
         f_skills: 'Programming — Java, Python, JavaScript (ES6)\nWeb Dev — HTML5, CSS3, Bootstrap, Tailwind\nDatabase — MySQL, Firebase dasar\nTools — Git, VS Code, Figma\nBahasa — Inggris (Technical Writing)',
         f_certs: 'Belajar Dasar Pemrograman Web — Dicoding (2023)\nTOEIC 600 — ETS (2024)', f_langs: 'Bahasa Indonesia — Native\nBahasa Inggris — Intermediate' 
     },
@@ -440,7 +528,8 @@ function validate() {
             { id: 'f_nama', err: 'e_nama' }, { id: 'f_title', err: 'e_title' },
             { id: 'f_email', err: 'e_email' }, { id: 'f_phone' },
             { id: 'f_linkedin', err: 'e_linkedin' },
-            { id: 'f_summary', err: 'e_summary' }, { id: 'f_edu', err: 'e_edu' },
+            { id: 'f_summary', err: 'e_summary' }, 
+            { id: 'f_edu1_school', err: 'e_edu1' }, 
             { id: 'f_skills', err: 'e_skills' }
         ];
         for (var i = 0; i < w.length; i++) {
@@ -449,10 +538,8 @@ function validate() {
             if (!el.value.trim()) { el.classList.add('err'); if (r.err) { var fe = document.getElementById(r.err); if (fe) fe.classList.add('sh'); } ok = false; }
             else { el.classList.remove('err'); if (r.err) { var fe2 = document.getElementById(r.err); if (fe2) fe2.classList.remove('sh'); } }
         }
-        /* Validasi format email */
         var em = document.getElementById('f_email');
         if (em && em.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())) { em.classList.add('err'); var fe3 = document.getElementById('e_email'); if (fe3) fe3.classList.add('sh'); ok = false; }
-        /* Validasi format URL LinkedIn */
         var li = document.getElementById('f_linkedin');
         if (li && li.value.trim() && !/^https:\/\/(www\.)?linkedin\.com\/in\//.test(li.value.trim())) { li.classList.add('err'); var fe4 = document.getElementById('e_linkedin'); if (fe4) fe4.classList.add('sh'); ok = false; }
         return ok;
@@ -465,11 +552,16 @@ setInterval(updateClock, 1000); updateClock();
 
 function checkPageOverflow() { try { var s = document.getElementById('surat'), g = s ? s.querySelector('.a4-page-guide') : null; if (!s || !g) return; var gh = g.offsetHeight; if (gh < 100) return; var ch = s.scrollHeight; var b = document.getElementById('overflowBadge'), info = document.getElementById('pageInfo'); if (ch > gh + 2) { if (b) b.classList.add('show'); var p = Math.ceil(ch / gh); if (info) { info.textContent = 'A4 \u2014 ' + p + ' Hal'; info.style.background = '#fef2f2'; info.style.color = '#dc2626'; } } else { if (b) b.classList.remove('show'); if (info) { info.textContent = 'A4 \u2014 1 Hal'; info.style.background = ''; info.style.color = ''; } } } catch (e) { } }
 
-function parseExp(n) { var raw = v('f_exp' + (n > 1 ? n : '')); if (!raw) return null; var lines = raw.trim().split('\n').filter(function (l) { return l.trim(); }); if (lines.length < 1) return null; return { title: lines[0] || '', sub: lines[1] || '', date: lines[2] || '', bullets: lines.slice(3) }; }
-function parseEdu(n) { var raw = v('f_edu' + (n > 1 ? n : '')); if (!raw) return null; var lines = raw.trim().split('\n').filter(function (l) { return l.trim(); }); if (lines.length < 1) return null; return { school: lines[0] || '', detail: lines[1] || '', date: lines[2] || '' }; }
+function parseExp(n) { 
+    var raw = v('f_exp' + (n > 1 ? n : '')); 
+    if (!raw) return null; 
+    var lines = raw.trim().split('\n').filter(function (l) { return l.trim(); }); 
+    if (lines.length < 1) return null; 
+    return { title: lines[0] || '', sub: lines[1] || '', date: lines[2] || '', bullets: lines.slice(3) }; 
+}
 
 /* ==============================================
-   RENDER CV — LINKEDIN FORMAT ATS
+   RENDER CV (UPDATED FOR S1 EDUCATION)
    ============================================== */
 function lv() { try { renderCV(); if (checkTimer) clearTimeout(checkTimer); checkTimer = setTimeout(checkPageOverflow, 80); } catch (e) { var sc = document.getElementById('sC'); if (sc) sc.innerHTML = '<div style="padding:40px;color:#dc2626;font-size:13px;"><strong>Error:</strong> ' + e.message + '</div>'; console.error(e); } }
 
@@ -485,10 +577,9 @@ function renderCV() {
     var fs = parseFloat(v('f_fs')) || 0.92;
     var lh = parseFloat(v('f_lh')) || 1.55;
 
-    /* Statistik */
-    var allText = [nama, title, summary, v('f_exp'), v('f_exp2'), v('f_exp3'), v('f_edu'), v('f_edu2'), v('f_skills'), v('f_certs'), v('f_langs')].join(' ');
-
-    /* ===== BARIS KONTAK — FORMAT ATS STANDAR ===== */
+    var allText = [nama, title, summary, v('f_exp'), v('f_exp2'), v('f_exp3'), v('f_edu1_school'), v('f_edu1_major'), v('f_skills'), v('f_certs'), v('f_langs')].join(' ');
+    
+    // Contact Header
     var cp = [];
     cp.push('<span>' + email + '</span>');
     cp.push('<span>' + phone + '</span>');
@@ -504,18 +595,57 @@ function renderCV() {
 
     if (summary) { h += '<div class="cv-heading">Ringkasan</div><div class="cv-summary">' + summary + '</div>'; }
 
+    // Experience
     var hasExp = false; for (var ei = 1; ei <= 2; ei++) { if (parseExp(ei)) { hasExp = true; break; } }
     if (hasExp) {
         h += '<div class="cv-heading">Pengalaman</div>';
-        for (var ej = 1; ej <= 2; ej++) { var ex = parseExp(ej); if (ex) { h += '<div class="cv-exp-item"><div class="cv-exp-header"><span class="cv-exp-role">' + ex.title + '</span><span class="cv-exp-date">' + ex.date + '</span></div><div class="cv-exp-company">' + ex.sub + '</div>'; for (var bi = 0; bi < ex.bullets.length; bi++) h += '<div class="cv-bullet">' + ex.bullets[bi].trim() + '</div>'; h += '</div>'; } }
+        for (var ej = 1; ej <= 2; ej++) { 
+            var ex = parseExp(ej); 
+            if (ex) { 
+                h += '<div class="cv-exp-item"><div class="cv-exp-header"><span class="cv-exp-role">' + ex.title + '</span><span class="cv-exp-date">' + ex.date + '</span></div><div class="cv-exp-company">' + ex.sub + '</div>'; 
+                for (var bi = 0; bi < ex.bullets.length; bi++) h += '<div class="cv-bullet">' + ex.bullets[bi].trim() + '</div>'; 
+                h += '</div>'; 
+            } 
+        }
     }
 
-    var hasEdu = false; for (var edi = 1; edi <= 2; edi++) { if (parseEdu(edi)) { hasEdu = true; break; } }
-    if (hasEdu) {
+    // Education 1 (S1) - Flexible with GPA & Thesis
+    var hasEdu1 = v('f_edu1_school');
+    if (hasEdu1) {
         h += '<div class="cv-heading">Pendidikan</div>';
-        for (var edj = 1; edj <= 2; edj++) { var ed = parseEdu(edj); if (ed) { h += '<div class="cv-edu-item"><div class="cv-edu-header"><span class="cv-edu-school">' + ed.school + '</span><span class="cv-edu-date">' + ed.date + '</span></div><div class="cv-edu-detail">' + ed.detail + '</div></div>'; } }
+        
+        var school1 = v('f_edu1_school');
+        var major1 = v('f_edu1_major');
+        var year1 = v('f_edu1_year');
+        var gpa1 = v('f_edu1_gpa');
+        var thesis1 = v('f_edu1_thesis');
+
+        if (school1) {
+            h += '<div class="cv-edu-item">';
+            h += '<div class="cv-edu-header"><span class="cv-edu-school">' + school1 + '</span><span class="cv-edu-date">' + year1 + '</span></div>';
+            h += '<div class="cv-edu-detail">';
+            h += '<span class="cv-edu-major">' + (major1 ? major1 : '') + '</span>';
+            if (gpa1) {
+                h += '<span class="cv-edu-gpa">IPK: ' + gpa1 + '</span>';
+            }
+            h += '</div>';
+            if (thesis1) {
+                h += '<div class="cv-edu-thesis">Skripsi: ' + thesis1 + '</div>';
+            }
+            h += '</div>';
+        }
+
+        // Education 2 (SMA)
+        var school2 = v('f_edu2_school');
+        if (school2) {
+            h += '<div class="cv-edu-item" style="margin-bottom:0">';
+            h += '<div class="cv-edu-header"><span class="cv-edu-school">' + school2 + '</span><span class="cv-edu-date">' + v('f_edu2_year') + '</span></div>';
+            h += '<div class="cv-edu-detail"><span class="cv-edu-major">' + v('f_edu2_major') + '</span></div>';
+            h += '</div>';
+        }
     }
 
+    // Skills
     var skills = v('f_skills');
     if (skills) {
         h += '<div class="cv-heading">Keahlian</div>';
@@ -523,9 +653,11 @@ function renderCV() {
         for (var si = 0; si < sL.length; si++) { var pts = sL[si].split('\u2014'); if (pts.length >= 2) h += '<div class="cv-skill-item"><span class="cv-skill-name">' + pts[0].trim() + '</span><span class="cv-skill-desc">' + pts.slice(1).join('\u2014').trim() + '</span></div>'; else h += '<div class="cv-bullet">' + sL[si].trim() + '</div>'; }
     }
 
+    // Certs
     var certs = v('f_certs');
     if (certs) { h += '<div class="cv-heading">Sertifikasi & Penghargaan</div>'; var cL = certs.split('\n').filter(function (l) { return l.trim(); }); for (var ci = 0; ci < cL.length; ci++) h += '<div class="cv-cert-item">' + cL[ci].trim() + '</div>'; }
 
+    // Langs
     var langs = v('f_langs');
     if (langs) { h += '<div class="cv-heading">Bahasa</div>'; var lL = langs.split('\n').filter(function (l) { return l.trim(); }); for (var li = 0; li < lL.length; li++) { var lp = lL[li].split('\u2014'); if (lp.length >= 2) h += '<div class="cv-lang-item"><span class="cv-lang-name">' + lp[0].trim() + '</span><span class="cv-lang-level">' + lp.slice(1).join('\u2014').trim() + '</span></div>'; else h += '<div class="cv-cert-item">' + lL[li].trim() + '</div>'; } }
 
@@ -549,8 +681,8 @@ function expImg() { try { if (!validate()) { toast('Lengkapi kolom wajib', 'wr')
 function copyText() { try { var s = document.getElementById('sC'); if (!s) return; var t = s.innerText || s.textContent; if (!t.trim()) { toast('Tidak ada teks', 'wr'); return; } if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(function () { toast('Teks disalin', 'ok'); }).catch(function () { fCopy(t); }); } else fCopy(t); } catch (e) { } }
 function fCopy(t) { try { var ta = document.createElement('textarea'); ta.value = t; ta.style.cssText = 'position:fixed;left:-9999px;'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); if (ta.parentNode) document.body.removeChild(ta); toast('Teks disalin', 'ok'); } catch (e) { } }
 
-var SK = 'cvats_freshgrad_v1';
-var FIDS = ['f_nama', 'f_title', 'f_email', 'f_phone', 'f_loc', 'f_linkedin', 'f_portfolio', 'f_summary', 'f_exp', 'f_exp2', 'f_exp3', 'f_edu', 'f_edu2', 'f_skills', 'f_certs', 'f_langs', 'f_fs', 'f_lh'];
+var SK = 'cvats_freshgrad_v2';
+var FIDS = ['f_nama', 'f_title', 'f_email', 'f_phone', 'f_loc', 'f_linkedin', 'f_portfolio', 'f_summary', 'f_exp', 'f_exp2', 'f_exp3', 'f_edu1_school', 'f_edu1_major', 'f_edu1_year', 'f_edu1_gpa', 'f_edu1_thesis', 'f_edu2_school', 'f_edu2_year', 'f_edu2_major', 'f_skills', 'f_certs', 'f_langs', 'f_fs', 'f_lh'];
 
 function saveDraft() { try { var d = {}; for (var i = 0; i < FIDS.length; i++) { var e = document.getElementById(FIDS[i]); if (e) d[FIDS[i]] = e.value; } d._t = new Date().toISOString(); d._font = curFont; d._dark = document.body.classList.contains('dark-mode'); localStorage.setItem(SK, JSON.stringify(d)); toast('Draft disimpan', 'ok'); } catch (e) { toast('Gagal menyimpan', 'bd'); } }
 function saveDraftSilent() { try { var d = {}; for (var i = 0; i < FIDS.length; i++) { var e = document.getElementById(FIDS[i]); if (e) d[FIDS[i]] = e.value; } d._t = new Date().toISOString(); d._font = curFont; d._dark = document.body.classList.contains('dark-mode'); localStorage.setItem(SK, JSON.stringify(d)); setStatus('Auto-saved', false); setTimeout(function () { setStatus('Siap', true); }, 1500); } catch (e) { } }
@@ -559,9 +691,6 @@ function loadDraft() { try { var r = localStorage.getItem(SK); if (!r) { toast('
 
 function confirmReset() { try { var ov = document.createElement('div'); ov.style.cssText = 'position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:9998;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(3px);animation:tIn .2s ease-out;'; var bx = document.createElement('div'); bx.style.cssText = 'background:#fff;border-radius:18px;padding:24px 26px;max-width:340px;width:92%;box-shadow:0 20px 50px rgba(0,0,0,.2);text-align:center;'; bx.innerHTML = '<div style="width:44px;height:44px;border-radius:12px;background:#fef2f2;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;"><i class="fa-solid fa-rotate-left" style="color:#dc2626;font-size:18px;"></i></div><h3 style="font-size:14px;font-weight:700;color:#1e293b;margin:0 0 4px;">Reset Semua Data?</h3><p style="font-size:11px;color:#64748b;margin:0 0 16px;">Data yang diisi akan dihapus.</p><div style="display:flex;gap:8px;"><button id="_rc" style="flex:1;padding:8px;border-radius:10px;border:1.5px solid #e2e8f0;background:#fff;font-size:11px;font-weight:600;color:#64748b;cursor:pointer;font-family:inherit;">Batal</button><button id="_ro" style="flex:1;padding:8px;border-radius:10px;border:none;background:#dc2626;color:#fff;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;">Ya, Reset</button></div>'; ov.appendChild(bx); document.body.appendChild(ov); ov.addEventListener('click', function (e) { if (e.target === ov && ov.parentNode) ov.parentNode.removeChild(ov); }); bx.querySelector('#_rc').onclick = function () { if (ov.parentNode) ov.parentNode.removeChild(ov); }; bx.querySelector('#_ro').onclick = function () { if (ov.parentNode) ov.parentNode.removeChild(ov); for (var i = 0; i < FIDS.length; i++) { var el = document.getElementById(FIDS[i]); if (el) el.value = ''; } lv(); toast('Dikosongkan', 'nf'); }; } catch (e) { } }
 
-/* ==============================================
-   INISIALISASI & EVENT BINDING
-   ============================================== */
 document.addEventListener('DOMContentLoaded', function () {
     try {
         document.getElementById('btnDark').addEventListener('click', toggleDark);
@@ -576,26 +705,20 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('btnZoomOut').addEventListener('click', function () { doZoom(-1); });
         document.getElementById('btnZoomReset').addEventListener('click', function () { doZoom(0); });
 
-        /* Template cards */
         var tplItems = document.querySelectorAll('#tplRow .tp-c');
         for (var ti = 0; ti < tplItems.length; ti++) { (function (el) { el.addEventListener('click', function () { var k = el.getAttribute('data-tpl'); var row = el.parentElement; if (!row) return; var items = row.querySelectorAll('.tp-c'); for (var i = 0; i < items.length; i++) items[i].classList.remove('on'); el.classList.add('on'); var t = TPL[k]; if (!t) return; if (t.f_summary !== undefined) { var e1 = document.getElementById('f_summary'); if (e1) e1.value = t.f_summary; } if (t.f_exp !== undefined) { var e2 = document.getElementById('f_exp'); if (e2) e2.value = t.f_exp; } if (t.f_exp2 !== undefined) { var e22 = document.getElementById('f_exp2'); if (e22) e22.value = t.f_exp2; } if (t.f_skills !== undefined) { var e3 = document.getElementById('f_skills'); if (e3) e3.value = t.f_skills; } if (t.f_certs !== undefined) { var e4 = document.getElementById('f_certs'); if (e4) e4.value = t.f_certs; } if (t.f_langs !== undefined) { var e5 = document.getElementById('f_langs'); if (e5) e5.value = t.f_langs; } lv(); toast('Template diterapkan', 'ok'); }); })(tplItems[ti]); }
 
-        /* Font cards */
         var fontItems = document.querySelectorAll('#fontRow .tp-c');
         for (var fi = 0; fi < fontItems.length; fi++) { (function (el) { el.addEventListener('click', function () { setFont(el.getAttribute('data-font'), el); }); })(fontItems[fi]); }
 
-        /* Quality cards */
         var qualItems = document.querySelectorAll('#qualRow .tp-c');
         for (var qi = 0; qi < qualItems.length; qi++) { (function (el) { el.addEventListener('click', function () { setQuality(el.getAttribute('data-qual'), el); }); })(qualItems[qi]); }
 
-        /* Section toggles */
         var secHds = document.querySelectorAll('[data-sec]');
         for (var si = 0; si < secHds.length; si++) { secHds[si].addEventListener('click', function () { togSec(this); }); }
 
-        /* Auto-save toggle */
         document.getElementById('tgAutoWrap').addEventListener('click', toggleAutoSave);
 
-        /* Form inputs — render on change + hapus error saat mengetik */
         var allInputs = document.querySelectorAll('.cv-input');
         for (var ii = 0; ii < allInputs.length; ii++) {
             (function (el) {
@@ -606,7 +729,6 @@ document.addEventListener('DOMContentLoaded', function () {
             })(allInputs[ii]);
         }
 
-        /* Keyboard shortcuts */
         document.addEventListener('keydown', function (e) {
             try {
                 var tag = e.target.tagName, isI = tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA';
@@ -618,14 +740,11 @@ document.addEventListener('DOMContentLoaded', function () {
             } catch (e) { }
         });
 
-        /* Render pertama */
         lv();
 
-        /* Deteksi draft */
         try { if (localStorage.getItem(SK)) setTimeout(function () { toast('Draft ditemukan. Klik Muat.', 'nf'); }, 1200); } catch (e) { }
 
-        /* Auto-save */
-        if (autoSaveOn) { var st = document.getElementById('stAuto'); if (st) st.style.display = 'inline'; startAutoSave(); }
+        if (autoSaveOn) { var st = document.getElementById('stAuto'); if (st) st.display = 'inline'; startAutoSave(); }
 
     } catch (e) { console.error('Init error:', e); try { renderCV(); } catch (e2) { } }
 });
